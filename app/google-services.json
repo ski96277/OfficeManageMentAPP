@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "570520309393",
+    "firebase_url": "https://smart-office-affa7.firebaseio.com",
+    "project_id": "smart-office-affa7",
+    "storage_bucket": "smart-office-affa7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:570520309393:android:48843a93b1f22637",
+        "android_client_info": {
+          "package_name": "com.rocketechit.officemanagementapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "570520309393-o5ieijv18mk2euu6007bfphch27nte1v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rocketechit.officemanagementapp",
+            "certificate_hash": "3456720a177be876f00c02ab7a77f4048a7de0ce"
+          }
+        },
+        {
+          "client_id": "570520309393-1j65l8f9k487mobicctfukl1iqaccr5j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBx0VeBMUVHx3y8KaPVAhfW9HUvlirNv5g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "570520309393-1j65l8f9k487mobicctfukl1iqaccr5j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
