@@ -32,8 +32,6 @@ public class AddNewEmployee extends Fragment {
     EditText addEmployeeEmail;
     @BindView(R.id.add_employee_designation_user_ET)
     EditText addEmployeeDesignationUserET;
-    @BindView(R.id.add_employee_button_ID)
-    Button addEmployeeButtonID;
     @BindView(R.id.add_employee_Password)
     EditText addEmployeePassword;
 
@@ -110,29 +108,26 @@ public class AddNewEmployee extends Fragment {
                         if (task.isSuccessful()) {
                             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                             String userID_Employee = firebaseUser.getUid();
-                            Employee_Information employee_information = new Employee_Information(userID_Employee, email, password);
+                            Employee_Information employee_information = new
+                                    Employee_Information(userID_Employee, email, password, "Null", "Null");
                             databaseReference1.child("Company_Employee")
                                     .child(userID_Admin).child(userID_Employee).setValue(employee_information);
                             databaseReference2.child("Employee_List").child(userID_Employee).setValue(employee_information);
                             FirebaseAuth.getInstance().signOut();
-                            /*
-                            FirebaseUser firebaseUser1=firebaseAuth.getCurrentUser();
-                            if (firebaseUser1.getUid()==null){
+                            FirebaseUser firebaseUser1 = firebaseAuth.getCurrentUser();
+                            if (firebaseUser1.getUid() == null) {
                                 Toast.makeText(getContext(), "asgfhdjsg", Toast.LENGTH_SHORT).show();
-                            }*/
-
+                            }
                             //again Login by Admin
                             firebaseAuth.signInWithEmailAndPassword(email_Admin, password_Admin)
                                     .addOnCompleteListener(getActivity(), task1 -> {
                                         if (task.isSuccessful()) {
-
                                             Fragment fragment = new AddNewEmployee();
                                             if (fragment != null) {
                                                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                                                 fragmentTransaction.replace(R.id.screen_Area_For_Admin, fragment);
                                                 fragmentTransaction.commit();
                                             }
-
                                             Toast.makeText(getContext(), "Again Login", Toast.LENGTH_SHORT).show();
                                         } else {
                                             Toast.makeText(getContext(), "Bolod", Toast.LENGTH_SHORT).show();

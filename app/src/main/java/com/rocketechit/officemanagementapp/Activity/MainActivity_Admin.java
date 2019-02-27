@@ -11,6 +11,7 @@ import android.view.View;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.rocketechit.officemanagementapp.FragmentClass.AddNewEmployee;
+import com.rocketechit.officemanagementapp.FragmentClass.EmployeeList;
 import com.rocketechit.officemanagementapp.R;
 
 import androidx.core.view.GravityCompat;
@@ -27,6 +28,7 @@ import android.widget.Switch;
 
 public class MainActivity_Admin extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private Fragment fragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,12 @@ public class MainActivity_Admin extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        fragment = new EmployeeList();
+        if (fragment != null) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.screen_Area_For_Admin, fragment);
+            fragmentTransaction.commit();
+        }
     }
 
     @Override
@@ -78,7 +86,7 @@ public class MainActivity_Admin extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        switch (id){
+        switch (id) {
             case R.id.add_New_Employee:
                 Fragment fragment = new AddNewEmployee();
                 if (fragment != null) {
@@ -90,7 +98,7 @@ public class MainActivity_Admin extends AppCompatActivity
                 break;
             case R.id.sign_out_Admin:
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(this,LoginActivity.class));
+                startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 break;
         }

@@ -17,7 +17,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rocketechit.officemanagementapp.JavaClass.CheckNetwork;
-import com.rocketechit.officemanagementapp.JavaClass.ConstantClass;
 import com.rocketechit.officemanagementapp.R;
 
 import androidx.annotation.NonNull;
@@ -40,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     @BindView(R.id.login_progress)
     ProgressBar loginProgress;
+    @BindView(R.id.prograssbar_loginCheck)
+    ProgressBar prograssbarLoginCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +53,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initialize() {
-
         firebaseAuth = FirebaseAuth.getInstance();
+        prograssbarLoginCheck.setVisibility(View.VISIBLE);
     }
 
     @OnClick({R.id.submit_login_btn, R.id.Go_signupTV})
@@ -73,28 +74,27 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 loginProgress.setVisibility(View.VISIBLE);
-                if (CheckNetwork.isInternetAvailable(this)){
+                if (CheckNetwork.isInternetAvailable(this)) {
                     firebaseAuth.signInWithEmailAndPassword(email, password)
                             .addOnCompleteListener(this, task -> {
-
                                 if (task.isSuccessful()) {
                                     loginProgress.setVisibility(View.GONE);
-                                    Toast.makeText(LoginActivity.this, "ok", Toast.LENGTH_SHORT).show();
+                                    if (CheckNetwork.isInternetAvailable(this)) {
+                                        checkUserID();
+                                    } else {
+                                        Toast.makeText(this, "Internet Error", Toast.LENGTH_SHORT).show();
+                                    }
                                 } else {
-
                                     loginProgress.setVisibility(View.GONE);
                                     Toast.makeText(LoginActivity.this, "Failed to Login", Toast.LENGTH_SHORT).show();
                                 }
                             });
-
-                }else {
+                } else {
                     Toast.makeText(this, "NetWork Error", Toast.LENGTH_SHORT).show();
                 }
-               
                 break;
             case R.id.Go_signupTV:
                 startActivity(new Intent(this, SignUPActivity.class));
-
                 break;
         }
     }
@@ -103,42 +103,41 @@ public class LoginActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
+        //internet check
+        if (CheckNetwork.isInternetAvailable(this)) {
+            checkUserID();
+        } else {
+            Toast.makeText(this, "Internet Error", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void checkUserID() {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
-
             String userID = currentUser.getUid();
-            /*if (ConstantClass.isAdminLogin(userID)){
-                Toast.makeText(this, "Admin OK", Toast.LENGTH_SHORT).show();
-            }else {
-                Toast.makeText(this, "NO ", Toast.LENGTH_SHORT).show();
-            }*/
-
             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
             DatabaseReference databaseReference = firebaseDatabase.getReference();
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                     if (dataSnapshot.child("Company").hasChild(userID)) {
                         startActivity(new Intent(LoginActivity.this, MainActivity_Admin.class));
+                        prograssbarLoginCheck.setVisibility(View.GONE);
                         finish();
                     }
-                    if (dataSnapshot.child("Employee_List").hasChild(userID)){
+                    if (dataSnapshot.child("Employee_List").hasChild(userID)) {
                         startActivity(new Intent(LoginActivity.this, MainActivity_Employee.class));
+                        prograssbarLoginCheck.setVisibility(View.GONE);
                         finish();
-
                     }
-
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
                 }
             });
-
         } else {
-            Toast.makeText(this, "No User", Toast.LENGTH_SHORT).show();
+            prograssbarLoginCheck.setVisibility(View.GONE);
         }
     }
 }

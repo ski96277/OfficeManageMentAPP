@@ -9,12 +9,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="300dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:src="@drawable/logo" />
+        <ProgressBar
+            android:id="@+id/prograssbar_loginCheck"
+            android:layout_width="100dp"
+            android:visibility="gone"
+            android:layout_height="100dp" />
     </LinearLayout>
 
     <LinearLayout
