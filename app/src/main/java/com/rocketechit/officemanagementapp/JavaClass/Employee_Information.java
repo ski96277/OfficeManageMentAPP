@@ -1,19 +1,34 @@
 package com.rocketechit.officemanagementapp.JavaClass;
 
-public class Employee_Information {
+import java.io.Serializable;
+
+public class Employee_Information implements Serializable {
     String userID_Employee;
     String email_Employee;
     String password_Employee;
     String name_Employee;
     String join_Date;
+    String imageLink;
+
+    public Employee_Information() {
+    }
 
     public Employee_Information(String userID_Employee, String email_Employee, String password_Employee,
-                                String name_Employee, String join_Date) {
+                                String name_Employee, String join_Date, String imageLink) {
         this.userID_Employee = userID_Employee;
         this.email_Employee = email_Employee;
         this.password_Employee = password_Employee;
         this.name_Employee = name_Employee;
         this.join_Date = join_Date;
+        this.imageLink=imageLink;
+    }
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
 
     public String getName_Employee() {

@@ -32,8 +32,6 @@ public class AddNewEmployee extends Fragment {
     EditText addEmployeeEmail;
     @BindView(R.id.add_employee_designation_user_ET)
     EditText addEmployeeDesignationUserET;
-    @BindView(R.id.add_employee_Password)
-    EditText addEmployeePassword;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference1, databaseReference2;
@@ -41,6 +39,7 @@ public class AddNewEmployee extends Fragment {
     String userID_Admin;
     String email_Admin;
     String password_Admin;
+    String password="123456";
 
     @Nullable
     @Override
@@ -83,7 +82,6 @@ public class AddNewEmployee extends Fragment {
 
         String email = addEmployeeEmail.getText().toString();
         String designation = addEmployeeDesignationUserET.getText().toString();
-        String password = addEmployeePassword.getText().toString();
 
         if (email.isEmpty()) {
             addEmployeeEmail.requestFocus();
@@ -95,11 +93,6 @@ public class AddNewEmployee extends Fragment {
             addEmployeeDesignationUserET.setError("Designation ?");
             return;
         }
-        if (password.isEmpty() && password.length() <= 5) {
-            addEmployeePassword.requestFocus();
-            addEmployeePassword.setError("Password ?");
-            return;
-        }
         Toast.makeText(getContext(), "Validation Ok", Toast.LENGTH_SHORT).show();
         if (CheckNetwork.isInternetAvailable(getContext())) {
 
@@ -109,15 +102,24 @@ public class AddNewEmployee extends Fragment {
                             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                             String userID_Employee = firebaseUser.getUid();
                             Employee_Information employee_information = new
-                                    Employee_Information(userID_Employee, email, password, "Null", "Null");
+                                    Employee_Information(userID_Employee, email, password, "Null", "Null", "Null");
                             databaseReference1.child("Company_Employee")
                                     .child(userID_Admin).child(userID_Employee).setValue(employee_information);
                             databaseReference2.child("Employee_List").child(userID_Employee).setValue(employee_information);
-                            FirebaseAuth.getInstance().signOut();
+
+                            Fragment fragment2 = new AddNewEmployee();
+                            if (fragment2 != null) {
+                                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                                fragmentTransaction.replace(R.id.screen_Area_For_Admin, fragment2);
+                                fragmentTransaction.commit();
+                            }
+
+
+                            /* FirebaseAuth.getInstance().signOut();
                             FirebaseUser firebaseUser1 = firebaseAuth.getCurrentUser();
                             if (firebaseUser1.getUid() == null) {
                                 Toast.makeText(getContext(), "asgfhdjsg", Toast.LENGTH_SHORT).show();
-                            }
+                            }*/
                             //again Login by Admin
                             firebaseAuth.signInWithEmailAndPassword(email_Admin, password_Admin)
                                     .addOnCompleteListener(getActivity(), task1 -> {
@@ -130,7 +132,7 @@ public class AddNewEmployee extends Fragment {
                                             }
                                             Toast.makeText(getContext(), "Again Login", Toast.LENGTH_SHORT).show();
                                         } else {
-                                            Toast.makeText(getContext(), "Bolod", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getContext(), "sorry", Toast.LENGTH_SHORT).show();
                                         }
                                     });
                         } else {

@@ -40,39 +40,7 @@
             android:textColorHint="#000000"
             android:textSize="@dimen/edit_text_size" />
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#4a5a71" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="16dp">
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center"
-            android:src="@drawable/password_icon" />
-
-        <EditText
-            android:id="@+id/add_employee_Password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:background="#00000000"
-            android:text="123456"
-            android:maxLines="1"
-            android:letterSpacing="0.5"
-            android:paddingLeft="5dp"
-            android:textColor="#000"
-            android:textColorHint="#000000"
-            android:textSize="@dimen/edit_text_size" />
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -121,13 +89,16 @@
             android:id="@+id/add_employee_button_ID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#000"
             android:paddingLeft="30dp"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
             android:paddingRight="30dp"
             android:text="Add Employee"
             android:textAllCaps="false"
+            android:backgroundTint="@color/black_color"
             android:textColor="#FFF"
-            android:textSize="@dimen/edit_text_size" />
+            android:background="@drawable/button_background"
+            android:textSize="@dimen/button_text_size" />
     </LinearLayout>
 
 </LinearLayout>

@@ -2,21 +2,48 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:gravity="center"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/employee_image"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/man" />
 
-    <TextView
-        android:id="@+id/employee_name"
-        android:layout_width="wrap_content"
+    <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Imran Sk"
-        android:textColor="#000"
-        android:textSize="25sp" />
+        android:layout_margin="5dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0.0px"
+        android:elevation="5dp"
+        card_view:cardElevation="10dp"
+        card_view:cardPreventCornerOverlap="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="30dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/employee_image_item"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/man" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/employee_name_item"
+                android:layout_width="150dp"
+                android:layout_margin="3dp"
+                android:layout_height="wrap_content"
+                android:text="Imran Sk"
+                android:gravity="center"
+                android:maxLines="1"
+                android:background="@drawable/button_background"
+                android:textColor="#000"
+                android:textSize="25sp" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
 </LinearLayout>
