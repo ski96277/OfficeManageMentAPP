@@ -7,6 +7,11 @@
         android:title="Add New Employee"
         app:showAsAction="never" />
     <item
+        android:id="@+id/add_Event"
+        android:orderInCategory="100"
+        android:title="Add Event"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/sign_out_Admin"
         android:orderInCategory="100"
         android:title="Sign out"

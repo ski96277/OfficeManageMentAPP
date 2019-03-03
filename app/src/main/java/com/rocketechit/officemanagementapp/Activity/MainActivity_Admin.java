@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.rocketechit.officemanagementapp.FragmentClass.AddEvent_F;
 import com.rocketechit.officemanagementapp.FragmentClass.AddNewEmployee;
 import com.rocketechit.officemanagementapp.FragmentClass.EmployeeList;
 import com.rocketechit.officemanagementapp.R;
@@ -54,10 +55,10 @@ public class MainActivity_Admin extends AppCompatActivity
         if (fragment != null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.screen_Area_For_Admin, fragment);
-            fragmentTransaction.addToBackStack("");
             fragmentTransaction.commit();
         }
     }
+
 
     @Override
     public void onBackPressed() {
@@ -78,20 +79,16 @@ public class MainActivity_Admin extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         switch (id) {
             case R.id.add_New_Employee:
-                Fragment fragment = new AddNewEmployee();
-                if (fragment != null) {
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.screen_Area_For_Admin, fragment);
-                    fragmentTransaction.addToBackStack("");
-                    fragmentTransaction.commit();
-                }
+                 fragment = new AddNewEmployee();
+               fragmentReplace(fragment);
+                break;
+            case R.id.add_Event:
+                 fragment = new AddEvent_F();
+               fragmentReplace(fragment);
                 break;
             case R.id.sign_out_Admin:
                 FirebaseAuth.getInstance().signOut();
@@ -99,11 +96,6 @@ public class MainActivity_Admin extends AppCompatActivity
                 finish();
                 break;
         }
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.add_New_Employee) {
-
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -130,5 +122,16 @@ public class MainActivity_Admin extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    //replace Fragment name
+    private void fragmentReplace(Fragment fragment) {
+
+        if (fragment != null) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.screen_Area_For_Admin, fragment);
+            fragmentTransaction.addToBackStack("");
+            fragmentTransaction.commit();
+        }
     }
 }

@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.rocketechit.officemanagementapp"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -46,6 +46,8 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     //circle image view
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+//custom calender
+    implementation 'sun.bob:mcalendarview:1.0.0'
 
 }
 apply plugin: 'com.google.gms.google-services'
