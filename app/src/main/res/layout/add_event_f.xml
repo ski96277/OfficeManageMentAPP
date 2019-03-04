@@ -1,17 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-  <!--  <CalendarView
-        android:id="@+id/calendarView_ID"
-        android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <sun.bob.mcalendarview.MCalendarView
+        android:id="@+id/calenderView_ID"
+        android:layout_width="match_parent"
+        android:layout_height="380dp"
+        android:layout_margin="10dp"
+        android:background="#FFF" />
+
+    <TextView
+        android:id="@+id/title_TV"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />-->
+        android:background="@drawable/background_white"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:scrollbars="vertical"
+        android:text="To watch it"
+        android:textColor="#000"
+        android:textSize="20dp" />
 
-
-  <sun.bob.mcalendarview.MCalendarView
-      android:id="@+id/calenderView_ID"
-    android:layout_width="400dp"
-    android:layout_height="400dp"
-    />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="false">
+        <TextView
+            android:id="@+id/details_TV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/background_white"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
+            android:scrollbars="vertical"
+            android:text="Touch the selected date"
+            android:textColor="#000"
+            android:textSize="20dp" />
+    </ScrollView>
 </LinearLayout>

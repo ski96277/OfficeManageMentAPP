@@ -8,30 +8,19 @@ public class EventClass {
     private String year;
     private String month;
     private String day;
-    private String userID;
 
     public EventClass() {
     }
 
     public EventClass(String eventTitle, String eventDetails, String date, String year,
-                      String month, String day,String userID) {
+                      String month, String day) {
         this.eventTitle = eventTitle;
         this.eventDetails = eventDetails;
         this.date = date;
         this.year = year;
         this.month = month;
         this.day = day;
-        this.userID=userID;
     }
-
-    public String getUserID() {
-        return userID;
-    }
-
-    public void setUserID(String userID) {
-        this.userID = userID;
-    }
-
     public String getEventTitle() {
         return eventTitle;
     }

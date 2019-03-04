@@ -6,31 +6,44 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.rocketechit.officemanagementapp.JavaClass.EventClass;
 import com.rocketechit.officemanagementapp.R;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import sun.bob.mcalendarview.MCalendarView;
 import sun.bob.mcalendarview.listeners.OnDateClickListener;
 import sun.bob.mcalendarview.vo.DateData;
 
 public class AddEvent_F extends Fragment {
 
-    MCalendarView mCalendarView;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
 
     String userID;
+    @BindView(R.id.calenderView_ID)
+    MCalendarView calenderViewID;
+    @BindView(R.id.title_TV)
+    TextView titleTV;
+    @BindView(R.id.details_TV)
+    TextView detailsTV;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,7 +55,29 @@ public class AddEvent_F extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mCalendarView = view.findViewById(R.id.calenderView_ID);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+
+        //high lilted the event Date
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.child("Event_List").child(getUserID()).getChildren()) {
+                    EventClass eventClass = snapshot.getValue(EventClass.class);
+                    int year = Integer.parseInt(eventClass.getYear());
+                    int month = Integer.parseInt(eventClass.getMonth());
+                    int day = Integer.parseInt(eventClass.getDay());
+                    calenderViewID.markDate(year, month, day);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
 //        mCalendarView.markDate(2019, 3, 10);
 //mark as a list
        /* ArrayList<DateData> dates=new ArrayList<>();
@@ -54,36 +89,77 @@ public class AddEvent_F extends Fragment {
         }*/
 
 
-
-        mCalendarView.setOnDateClickListener(new OnDateClickListener() {
+        calenderViewID.setOnDateClickListener(new OnDateClickListener() {
             @Override
             public void onDateClick(View view, DateData date) {
 
-                String year= String.valueOf(date.getYear());
-                String month= String.valueOf(date.getMonth());
-                String day= String.valueOf(date.getDay());
-
+                String year = String.valueOf(date.getYear());
+                String month = String.valueOf(date.getMonth());
+                String day = String.valueOf(date.getDay());
                 String datew = String.format("%d, %d, %d", date.getYear(), date.getMonth(), date.getDay());
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-                LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-                view = layoutInflater.inflate(R.layout.add_event_custom_alert_dialog, null);
-                alertDialogBuilder.setView(view);
-                EditText titleET = view.findViewById(R.id.event_titleID);
-                EditText descriptionET = view.findViewById(R.id.event_details_ID);
-                String title = titleET.getText().toString();
-                String description = descriptionET.getText().toString();
-
-
-                alertDialogBuilder.setTitle("Event Details")
-                        .setPositiveButton("Submit", (dialog, which) -> {
-                            String userID=getUserID();
-                            EventClass eventClass=new EventClass(title,description,datew,year,month,day,userID);
-
-                        }).setNegativeButton("Cancel", (dialog, which) -> alertDialogBuilder.setCancelable(true)).show();
+                checkTheDateIsTaken(datew, year, month, day);
             }
         });
 
     }
+
+    private void checkTheDateIsTaken(String datew, String year, String month, String day) {
+//high lilted the event Date
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                boolean hasTheDate = dataSnapshot.child("Event_List").child(getUserID()).hasChild(datew);
+                if (hasTheDate) {
+
+                    databaseReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            String title = dataSnapshot.child("Event_List").child(getUserID())
+                                    .child(datew).child("eventTitle").getValue(String.class);
+                            String details = dataSnapshot.child("Event_List").child(getUserID())
+                                    .child(datew).child("eventDetails").getValue(String.class);
+
+                            titleTV.setText(title);
+                            detailsTV.setText(details);
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });//end the addValueEventListener action
+
+                } else {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+                    LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+                    View view = layoutInflater.inflate(R.layout.add_event_custom_alert_dialog, null);
+                    alertDialogBuilder.setView(view);
+                    EditText titleET = view.findViewById(R.id.event_titleID);
+                    EditText descriptionET = view.findViewById(R.id.event_details_ID);
+                    alertDialogBuilder
+                            .setPositiveButton("Submit", (dialog, which) -> {
+                                String userID = getUserID();
+
+                                String title = titleET.getText().toString();
+                                String description = descriptionET.getText().toString();
+                                EventClass eventClass = new EventClass(title, description, datew, year, month, day);
+                                databaseReference.child("Event_List").child(userID).child(datew).setValue(eventClass);
+
+                            }).setNegativeButton("Cancel", (dialog, which) -> alertDialogBuilder.setCancelable(true)).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
     //get Current Admin User ID
     private String getUserID() {
@@ -94,5 +170,17 @@ public class AddEvent_F extends Fragment {
         firebaseUser = firebaseAuth.getCurrentUser();
         String userID = firebaseUser.getUid();
         return userID;
+    }
+
+    @OnClick({R.id.title_TV, R.id.details_TV})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.title_TV:
+                Toast.makeText(getContext(), "Edit Coming soon", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.details_TV:
+                Toast.makeText(getContext(), "Edit Coming soon", Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 }

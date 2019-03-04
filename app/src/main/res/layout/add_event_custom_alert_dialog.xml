@@ -5,7 +5,14 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:orientation="vertical">
-
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Event Details"
+    android:textSize="30sp"
+    android:textColor="#000"
+    android:layout_marginBottom="25dp"
+    android:layout_gravity="center_horizontal"/>
     <EditText
         android:id="@+id/event_titleID"
         android:layout_width="match_parent"

@@ -64,7 +64,6 @@ public class EmployeeList extends Fragment {
         employee_informations = getUserData();
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-//        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
 
         employeeListRecyclerID.setLayoutManager(gridLayoutManager);
 
