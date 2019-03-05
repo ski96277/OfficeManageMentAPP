@@ -1,10 +1,11 @@
 package com.rocketechit.officemanagementapp.FragmentClass.Employee;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import com.rocketechit.officemanagementapp.Activity.ScanResultActivity;
 import com.rocketechit.officemanagementapp.R;
 
 import androidx.annotation.NonNull;
@@ -34,11 +35,15 @@ public class Employee_Home extends Fragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.entry_Button:
+                startActivity(new Intent(getActivity(), ScanResultActivity.class)
+                        .putExtra("value", "Your Entry Time"));
 
                 break;
             case R.id.exit_Button:
-
+                startActivity(new Intent(getActivity(), ScanResultActivity.class)
+                        .putExtra("value", "Your Exit Time"));
                 break;
         }
     }
+
 }

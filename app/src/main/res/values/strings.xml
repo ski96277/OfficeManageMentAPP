@@ -8,8 +8,8 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_main__employee">MainActivity_Employee</string>
-    
-    
+
+
     <string-array name="year_List">
         <item>2019</item>
         <item>2018</item>
