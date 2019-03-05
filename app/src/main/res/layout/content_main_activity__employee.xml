@@ -8,4 +8,10 @@
     tools:context=".Activity.MainActivity_Employee"
     tools:showIn="@layout/app_bar_main_activity__employee">
 
+
+    <FrameLayout
+        android:id="@+id/screen_Area_For_Employee"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

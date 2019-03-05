@@ -3,16 +3,11 @@ package com.rocketechit.officemanagementapp.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import android.view.View;
-
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.rocketechit.officemanagementapp.FragmentClass.AddEvent_F;
-import com.rocketechit.officemanagementapp.FragmentClass.AddNewEmployee;
-import com.rocketechit.officemanagementapp.FragmentClass.EmployeeList;
+import com.rocketechit.officemanagementapp.FragmentClass.Admin.AddEvent_F;
+import com.rocketechit.officemanagementapp.FragmentClass.Admin.AddNewEmployee;
+import com.rocketechit.officemanagementapp.FragmentClass.Admin.EmployeeList;
 import com.rocketechit.officemanagementapp.R;
 
 import androidx.core.view.GravityCompat;
@@ -21,11 +16,11 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Switch;
 
 public class MainActivity_Admin extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,9 +33,9 @@ public class MainActivity_Admin extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+     /*   FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> Snackbar.make(view, "Admin ", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
+                .setAction("Action", null).show());*/
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -128,7 +123,10 @@ public class MainActivity_Admin extends AppCompatActivity
     private void fragmentReplace(Fragment fragment) {
 
         if (fragment != null) {
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
             fragmentTransaction.replace(R.id.screen_Area_For_Admin, fragment);
             fragmentTransaction.addToBackStack("");
             fragmentTransaction.commit();
