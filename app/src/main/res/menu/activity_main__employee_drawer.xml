@@ -3,21 +3,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/nav_camera_group_ID"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_camera"
+            android:checkable="true"
             android:icon="@drawable/ic_menu_camera"
             android:title="Import" />
+    </group>
+    <group
+        android:id="@+id/nav_Gallery_group_ID" android:checkableBehavior="single">
         <item
             android:id="@+id/nav_gallery"
+            android:checkable="true"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Gallery" />
+    </group>
+    <group android:checkableBehavior="single"
+
+        android:id="@+id/nav_slideshow_group_ID">
+
         <item
             android:id="@+id/nav_slideshow"
+            android:checkable="true"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Slideshow" />
+    </group>
+    <group android:checkableBehavior="single"
+        android:id="@+id/nav_tools_group_ID">
+
         <item
             android:id="@+id/nav_manage"
+            android:checkable="true"
             android:icon="@drawable/ic_menu_manage"
             android:title="Tools" />
     </group>

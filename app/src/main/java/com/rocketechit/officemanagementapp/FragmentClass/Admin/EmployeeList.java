@@ -73,6 +73,7 @@ public class EmployeeList extends Fragment {
 
                 Employee_Information employee_information = new Employee_Information(
                         employee_informations.get(position).getUserID_Employee(),
+                        employee_informations.get(position).getUserID_company(),
                         employee_informations.get(position).getEmail_Employee(),
                         employee_informations.get(position).getPassword_Employee(),
                         employee_informations.get(position).getName_Employee(),
@@ -88,7 +89,7 @@ public class EmployeeList extends Fragment {
                     fragment.setArguments(bundle);
 
                     FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.screen_Area_For_Admin,fragment);
+                    fragmentTransaction.replace(R.id.screen_Area_For_Admin, fragment);
                     fragmentTransaction.addToBackStack("");
                     fragmentTransaction.commit();
                 }

@@ -1,13 +1,10 @@
-package com.rocketechit.officemanagementapp.FragmentClass.Admin;
+package com.rocketechit.officemanagementapp.FragmentClass.Employee;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,16 +21,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import sun.bob.mcalendarview.MCalendarView;
 import sun.bob.mcalendarview.listeners.OnDateClickListener;
 import sun.bob.mcalendarview.vo.DateData;
 
-public class AddEvent_F extends Fragment {
-
+public class ViewCalender_F extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
-
     @BindView(R.id.calenderView_ID)
     MCalendarView calenderViewID;
     @BindView(R.id.title_TV)
@@ -46,7 +40,7 @@ public class AddEvent_F extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.add_event_f, null);
+        View view = inflater.inflate(R.layout.view_calender_f, null);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -61,7 +55,8 @@ public class AddEvent_F extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.child("Event_List").child(getUserID()).getChildren()) {
+                for (DataSnapshot snapshot : dataSnapshot.child("Event_List").child("1bDbWQodBxXVX0mnKdERRa8vYuH3")
+                        .getChildren()) {
                     EventClass eventClass = snapshot.getValue(EventClass.class);
                     int year = Integer.parseInt(eventClass.getYear());
                     int month = Integer.parseInt(eventClass.getMonth());
@@ -76,16 +71,6 @@ public class AddEvent_F extends Fragment {
             }
         });
 
-
-//        mCalendarView.markDate(2019, 3, 10);
-//mark as a list
-       /* ArrayList<DateData> dates=new ArrayList<>();
-        dates.add(new DateData(2018,04,26));
-        dates.add(new DateData(2018,04,27));
-
-        for(int i=0;i<dates.size();i++) {
-            mCalendarView.markDate(dates.get(i).getYear(),dates.get(i).getMonth(),dates.get(i).getDay());//mark multiple dates with this code.
-        }*/
 
 
         calenderViewID.setOnDateClickListener(new OnDateClickListener() {
@@ -109,19 +94,20 @@ public class AddEvent_F extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                boolean hasTheDate = dataSnapshot.child("Event_List").child(getUserID()).hasChild(datew);
+                boolean hasTheDate = dataSnapshot.child("Event_List").child("1bDbWQodBxXVX0mnKdERRa8vYuH3")
+                        .hasChild(datew);
                 if (hasTheDate) {
 
                     databaseReference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                            String title = dataSnapshot.child("Event_List").child(getUserID())
+                            String title = dataSnapshot.child("Event_List").child("1bDbWQodBxXVX0mnKdERRa8vYuH3")
                                     .child(datew).child("eventTitle").getValue(String.class);
-                            String details = dataSnapshot.child("Event_List").child(getUserID())
+                            String details = dataSnapshot.child("Event_List").child("1bDbWQodBxXVX0mnKdERRa8vYuH3")
                                     .child(datew).child("eventDetails").getValue(String.class);
 //this date taken only for use when i update the event
-                            String date = dataSnapshot.child("Event_List").child(getUserID())
+                            String date = dataSnapshot.child("Event_List").child("1bDbWQodBxXVX0mnKdERRa8vYuH3")
                                     .child(datew).child("date").getValue(String.class);
                             dateTV.setText(date);
 
@@ -135,24 +121,6 @@ public class AddEvent_F extends Fragment {
                         }
                     });//end the addValueEventListener action
 
-                } else {
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-                    LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-                    View view = layoutInflater.inflate(R.layout.add_event_custom_alert_dialog, null);
-                    alertDialogBuilder.setView(view);
-                    EditText titleET = view.findViewById(R.id.event_titleID);
-                    EditText descriptionET = view.findViewById(R.id.event_details_ID);
-                    alertDialogBuilder
-                            .setPositiveButton("Submit", (dialog, which) -> {
-                                String userID = getUserID();
-
-                                String title = titleET.getText().toString();
-                                String description = descriptionET.getText().toString();
-                                EventClass eventClass = new EventClass(title, description, datew, year, month, day);
-                                databaseReference.child("Event_List").child(userID).child(datew).setValue(eventClass);
-                                Toast.makeText(getContext(), "Event Added", Toast.LENGTH_SHORT).show();
-
-                            }).setNegativeButton("Cancel", (dialog, which) -> alertDialogBuilder.setCancelable(true)).show();
                 }
             }
 
@@ -164,7 +132,7 @@ public class AddEvent_F extends Fragment {
     }
 
 
-    //get Current Admin User ID
+   /* //get Current Admin User ID
     private String getUserID() {
 
         FirebaseAuth firebaseAuth;
@@ -173,51 +141,6 @@ public class AddEvent_F extends Fragment {
         firebaseUser = firebaseAuth.getCurrentUser();
         String userID = firebaseUser.getUid();
         return userID;
-    }
+    }*/
 
-    //onclick method in Textview
-
-    @OnClick({R.id.title_TV, R.id.details_TV})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.title_TV:
-
-                callTheEditMethod();
-                break;
-            case R.id.details_TV:
-                callTheEditMethod();
-                break;
-        }
-    }
-
-    private void callTheEditMethod() {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-        LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-        View view = layoutInflater.inflate(R.layout.add_event_custom_alert_dialog, null);
-        alertDialogBuilder.setView(view);
-        EditText titleET = view.findViewById(R.id.event_titleID);
-        EditText descriptionET = view.findViewById(R.id.event_details_ID);
-
-//get the Text from TextView and set on alert Edit Text
-        titleET.setText(titleTV.getText().toString());
-        descriptionET.setText(detailsTV.getText().toString());
-
-        String date = dateTV.getText().toString();
-
-        alertDialogBuilder
-                .setPositiveButton("Submit", (dialog, which) -> {
-                    String userID = getUserID();
-
-                    String title = titleET.getText().toString();
-                    String description = descriptionET.getText().toString();
-
-                    databaseReference.child("Event_List").child(userID)
-                            .child(date).child("eventTitle").setValue(title);
-                    databaseReference.child("Event_List").child(userID)
-                            .child(date).child("eventDetails").setValue(description);
-                    Toast.makeText(getContext(), "Event updated", Toast.LENGTH_SHORT).show();
-
-                }).setNegativeButton("Cancel", (dialog, which) -> alertDialogBuilder.setCancelable(true)).show();
-
-    }
 }

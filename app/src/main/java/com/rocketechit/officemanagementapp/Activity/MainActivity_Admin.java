@@ -126,9 +126,8 @@ public class MainActivity_Admin extends AppCompatActivity
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-            fragmentTransaction.replace(R.id.screen_Area_For_Admin, fragment);
             fragmentTransaction.addToBackStack("");
+            fragmentTransaction.replace(R.id.screen_Area_For_Admin, fragment);
             fragmentTransaction.commit();
         }
     }

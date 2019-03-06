@@ -6,6 +6,8 @@ import android.os.Bundle;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.rocketechit.officemanagementapp.FragmentClass.Employee.Employee_Home;
+import com.rocketechit.officemanagementapp.FragmentClass.Employee.Employee_Profile_F;
+import com.rocketechit.officemanagementapp.FragmentClass.Employee.ViewCalender_F;
 import com.rocketechit.officemanagementapp.R;
 
 import androidx.core.view.GravityCompat;
@@ -84,6 +86,24 @@ public class MainActivity_Employee extends AppCompatActivity
 
         int id = item.getItemId();
         switch (id) {
+            case R.id.view_calender_Employee:
+                fragment = new ViewCalender_F();
+                fragmentReplace(fragment);
+                /*if (fragment!=null){
+
+                    FragmentManager fragmentManager=getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+                    fragmentTransaction.addToBackStack("");
+                    fragmentTransaction.replace(R.id.screen_Area_For_Employee,fragment);
+                    fragmentTransaction.commit();
+                }*/
+                break;
+            case R.id.view_profile_Employee:
+
+                fragment = new Employee_Profile_F();
+                fragmentReplace(fragment);
+
+                break;
             case R.id.log_out_Employee:
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(this, LoginActivity.class));
@@ -116,5 +136,18 @@ public class MainActivity_Employee extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    //replace Fragment name
+    private void fragmentReplace(Fragment fragment) {
+
+        if (fragment != null) {
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.addToBackStack("");
+            fragmentTransaction.replace(R.id.screen_Area_For_Employee, fragment);
+            fragmentTransaction.commit();
+        }
     }
 }

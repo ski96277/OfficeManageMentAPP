@@ -2,6 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/view_calender_Employee"
+        android:orderInCategory="100"
+        android:title="View Event"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/view_profile_Employee"
+        android:orderInCategory="100"
+        android:title="My Profile"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/log_out_Employee"
         android:orderInCategory="100"
         android:title="Log out"

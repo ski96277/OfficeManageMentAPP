@@ -4,23 +4,45 @@ import java.io.Serializable;
 
 public class Employee_Information implements Serializable {
     String userID_Employee;
+    String userID_company;
     String email_Employee;
     String password_Employee;
     String name_Employee;
     String join_Date;
     String imageLink;
 
+
     public Employee_Information() {
     }
+/*
 
     public Employee_Information(String userID_Employee, String email_Employee, String password_Employee,
-                                String name_Employee, String join_Date, String imageLink) {
+                                String name_Employee, String join_Date, String imageLink,String ) {
         this.userID_Employee = userID_Employee;
         this.email_Employee = email_Employee;
         this.password_Employee = password_Employee;
         this.name_Employee = name_Employee;
         this.join_Date = join_Date;
         this.imageLink=imageLink;
+    }
+*/
+
+    public Employee_Information(String userID_Employee, String userID_company, String email_Employee, String password_Employee, String name_Employee, String join_Date, String imageLink) {
+        this.userID_Employee = userID_Employee;
+        this.userID_company = userID_company;
+        this.email_Employee = email_Employee;
+        this.password_Employee = password_Employee;
+        this.name_Employee = name_Employee;
+        this.join_Date = join_Date;
+        this.imageLink = imageLink;
+    }
+
+    public String getUserID_company() {
+        return userID_company;
+    }
+
+    public void setUserID_company(String userID_company) {
+        this.userID_company = userID_company;
     }
 
     public String getImageLink() {
