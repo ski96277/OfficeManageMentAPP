@@ -10,6 +10,8 @@ public class Employee_Information implements Serializable {
     String name_Employee;
     String join_Date;
     String imageLink;
+    String designation;
+    String phone;
 
 
     public Employee_Information() {
@@ -27,7 +29,8 @@ public class Employee_Information implements Serializable {
     }
 */
 
-    public Employee_Information(String userID_Employee, String userID_company, String email_Employee, String password_Employee, String name_Employee, String join_Date, String imageLink) {
+    public Employee_Information(String userID_Employee, String userID_company, String email_Employee, String password_Employee,
+                                String name_Employee, String join_Date, String imageLink,String designation,String phone) {
         this.userID_Employee = userID_Employee;
         this.userID_company = userID_company;
         this.email_Employee = email_Employee;
@@ -35,6 +38,24 @@ public class Employee_Information implements Serializable {
         this.name_Employee = name_Employee;
         this.join_Date = join_Date;
         this.imageLink = imageLink;
+        this.designation=designation;
+        this.phone=phone;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
     }
 
     public String getUserID_company() {

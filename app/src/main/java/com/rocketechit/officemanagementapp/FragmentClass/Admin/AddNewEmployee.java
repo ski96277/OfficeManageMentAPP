@@ -101,7 +101,8 @@ public class AddNewEmployee extends Fragment {
                             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                             String userID_Employee = firebaseUser.getUid();
                             Employee_Information employee_information = new
-                                    Employee_Information(userID_Employee,userID_Admin, email, password, "Null", "Null", "Null");
+                                    Employee_Information(userID_Employee,userID_Admin, email, password, "Null", "Null",
+                                    "Null",designation,"null");
                             databaseReference1.child("Company_Employee")
                                     .child(userID_Admin).child(userID_Employee).setValue(employee_information);
                             databaseReference2.child("Employee_List").child(userID_Employee).setValue(employee_information);

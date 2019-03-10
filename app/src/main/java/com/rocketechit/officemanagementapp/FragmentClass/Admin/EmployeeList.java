@@ -78,7 +78,9 @@ public class EmployeeList extends Fragment {
                         employee_informations.get(position).getPassword_Employee(),
                         employee_informations.get(position).getName_Employee(),
                         employee_informations.get(position).getJoin_Date(),
-                        employee_informations.get(position).getImageLink()
+                        employee_informations.get(position).getImageLink(),
+                        employee_informations.get(position).getDesignation(),
+                        employee_informations.get(position).getPhone()
                 );
 
                 Fragment fragment = new Employee_profile_view_by_admin();
