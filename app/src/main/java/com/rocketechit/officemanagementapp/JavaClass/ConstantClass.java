@@ -1,5 +1,7 @@
 package com.rocketechit.officemanagementapp.JavaClass;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -10,25 +12,16 @@ import androidx.annotation.NonNull;
 
 public class ConstantClass {
 
-/*    static boolean aTrue = false;
+    //get Current Admin User ID
+    private static String getUserID() {
 
-    public static boolean isAdminLogin(String userID){
+        FirebaseAuth firebaseAuth;
+        FirebaseUser firebaseUser;
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        String userID = firebaseUser.getUid();
+        return userID;
+    }
 
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference databaseReference = firebaseDatabase.getReference();
-    databaseReference.addValueEventListener(new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            aTrue =  dataSnapshot.child("Company").hasChild(userID);
-
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-        }
-    });
-return aTrue;
-}*/
 
 }

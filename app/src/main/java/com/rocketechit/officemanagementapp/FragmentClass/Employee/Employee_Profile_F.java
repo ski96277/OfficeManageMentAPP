@@ -1,6 +1,7 @@
 package com.rocketechit.officemanagementapp.FragmentClass.Employee;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,13 +25,16 @@ import com.squareup.picasso.Picasso;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Employee_Profile_F extends Fragment {
     @BindView(R.id.employee_profileview_image)
-    ImageView profileviewImage_img;
+    CircleImageView profileviewImage_img;
     @BindView(R.id.employee_profileview_position)
     TextView position_TV;
     @BindView(R.id.employee_profileview_name_TV)
@@ -44,7 +48,8 @@ public class Employee_Profile_F extends Fragment {
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
-
+    Fragment fragment = null;
+    Employee_Information employee_information;
 
     @Nullable
     @Override
@@ -98,9 +103,9 @@ public class Employee_Profile_F extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Employee_Information employee_information1 = dataSnapshot.child("Employee_List").child(getUserID()).getValue(Employee_Information.class);
+                employee_information = dataSnapshot.child("Employee_List").child(getUserID()).getValue(Employee_Information.class);
 
-                myCallBack.onCallBack(employee_information1);
+                myCallBack.onCallBack(employee_information);
             }
 
             @Override
@@ -113,7 +118,19 @@ public class Employee_Profile_F extends Fragment {
 
     @OnClick(R.id.employee_profileview_Edit_button)
     public void onClick() {
-        Toast.makeText(getContext(), "Edit Profile", Toast.LENGTH_SHORT).show();
+
+        fragment = new Edit_employee_profile();
+        if (fragment != null) {
+            Bundle bundle=new Bundle();
+            bundle.putSerializable("employee_information", employee_information);
+            Log.e("TAG - - ", "onClick: "+employee_information.getDesignation() );
+            fragment.setArguments(bundle);
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.addToBackStack("");
+            fragmentTransaction.replace(R.id.screen_Area_For_Employee, fragment);
+            fragmentTransaction.commit();
+        }
 
     }
 

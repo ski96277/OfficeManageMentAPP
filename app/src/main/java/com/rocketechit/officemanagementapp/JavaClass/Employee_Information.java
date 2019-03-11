@@ -1,5 +1,7 @@
 package com.rocketechit.officemanagementapp.JavaClass;
 
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 public class Employee_Information implements Serializable {
