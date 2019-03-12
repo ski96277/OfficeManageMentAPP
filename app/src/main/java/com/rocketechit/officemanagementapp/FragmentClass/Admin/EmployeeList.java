@@ -34,15 +34,18 @@ public class EmployeeList extends Fragment {
     DatabaseReference databaseReference;
     String userID;
 
-    List<Employee_Information> employee_informations;
+    List<Employee_Information> employee_informations= new ArrayList<Employee_Information>();;
 
     @BindView(R.id.employee_list_Recycler_ID)
     RecyclerView employeeListRecyclerID;
 
+    View view;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.employee_list, null);
+        if (view==null){
+            view = inflater.inflate(R.layout.employee_list, null);
+        }
         ButterKnife.bind(this, view);
         return view;
     }
@@ -53,18 +56,15 @@ public class EmployeeList extends Fragment {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
-        employee_informations = new ArrayList<>();
+//        employee_informations = new ArrayList<Employee_Information>();
 //get Current Admin User ID
         userID = getUserID();
 //get Employee Information as a list
         employee_informations = getUserData();
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-
         employeeListRecyclerID.setLayoutManager(gridLayoutManager);
-
         EmployeeList_Adapter adapterClass_recycler = new EmployeeList_Adapter(getContext(), employee_informations);
-
         employeeListRecyclerID.setAdapter(adapterClass_recycler);
 
         adapterClass_recycler.setOnItemClickListener(new EmployeeList_Adapter.ClickListener() {

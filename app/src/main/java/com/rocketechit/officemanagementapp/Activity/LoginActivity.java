@@ -39,8 +39,6 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     @BindView(R.id.login_progress)
     ProgressBar loginProgress;
-    @BindView(R.id.prograssbar_loginCheck)
-    ProgressBar prograssbarLoginCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +52,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initialize() {
         firebaseAuth = FirebaseAuth.getInstance();
-        prograssbarLoginCheck.setVisibility(View.VISIBLE);
     }
 
     @OnClick({R.id.submit_login_btn, R.id.Go_signupTV})
@@ -78,7 +75,6 @@ public class LoginActivity extends AppCompatActivity {
                     firebaseAuth.signInWithEmailAndPassword(email, password)
                             .addOnCompleteListener(this, task -> {
                                 if (task.isSuccessful()) {
-                                    loginProgress.setVisibility(View.GONE);
                                     if (CheckNetwork.isInternetAvailable(this)) {
                                         checkUserID();
                                     } else {
@@ -99,18 +95,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        //internet check
-        if (CheckNetwork.isInternetAvailable(this)) {
-            checkUserID();
-        } else {
-            Toast.makeText(this, "Internet Error", Toast.LENGTH_SHORT).show();
-        }
-    }
-
+    //check user after login
     public void checkUserID() {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
@@ -121,13 +106,15 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.child("Company").hasChild(userID)) {
+
+                        loginProgress.setVisibility(View.GONE);
                         startActivity(new Intent(LoginActivity.this, MainActivity_Admin.class));
-                        prograssbarLoginCheck.setVisibility(View.GONE);
                         finish();
                     }
                     if (dataSnapshot.child("Employee_List").hasChild(userID)) {
+
+                        loginProgress.setVisibility(View.GONE);
                         startActivity(new Intent(LoginActivity.this, MainActivity_Employee.class));
-                        prograssbarLoginCheck.setVisibility(View.GONE);
                         finish();
                     }
                 }
@@ -136,8 +123,6 @@ public class LoginActivity extends AppCompatActivity {
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
             });
-        } else {
-            prograssbarLoginCheck.setVisibility(View.GONE);
         }
     }
 }

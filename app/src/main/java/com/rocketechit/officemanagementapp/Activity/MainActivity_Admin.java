@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity_Admin extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -33,10 +34,6 @@ public class MainActivity_Admin extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-     /*   FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> Snackbar.make(view, "Admin ", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());*/
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -46,14 +43,17 @@ public class MainActivity_Admin extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         // default fragment set up
-        fragment = new EmployeeList();
-        if (fragment != null) {
+        Fragment fragment1 = new EmployeeList();
+        Toast.makeText(this, "+call the", Toast.LENGTH_SHORT).show();
+
+        if (fragment1!=null){
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.screen_Area_For_Admin, fragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.replace(R.id.screen_Area_For_Admin, fragment1);
             fragmentTransaction.commit();
         }
-    }
 
+    }
 
     @Override
     public void onBackPressed() {

@@ -12,9 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activity.ScanResultActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.MainActivity_Employee"
             android:label="@string/title_activity_main__employee"
@@ -23,18 +30,13 @@
             android:name=".Activity.MainActivity_Admin"
             android:label="@string/title_activity_main__admin"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.SignUPActivity" />
-        <!-- Set the orientation of the camera -->
+        <activity android:name=".Activity.SignUPActivity" /> <!-- Set the orientation of the camera -->
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
         <activity android:name=".Activity.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
