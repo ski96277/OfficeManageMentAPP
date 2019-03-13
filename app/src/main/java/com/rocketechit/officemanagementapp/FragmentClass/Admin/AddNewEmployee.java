@@ -38,7 +38,7 @@ public class AddNewEmployee extends Fragment {
     String userID_Admin;
     String email_Admin;
     String password_Admin;
-    String password="123456";
+    String password = "123456";
 
     @Nullable
     @Override
@@ -92,7 +92,7 @@ public class AddNewEmployee extends Fragment {
             addEmployeeDesignationUserET.setError("Designation ?");
             return;
         }
-        Toast.makeText(getContext(), "Validation Ok", Toast.LENGTH_SHORT).show();
+
         if (CheckNetwork.isInternetAvailable(getContext())) {
 
             firebaseAuth.createUserWithEmailAndPassword(email, password)
@@ -101,18 +101,39 @@ public class AddNewEmployee extends Fragment {
                             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                             String userID_Employee = firebaseUser.getUid();
                             Employee_Information employee_information = new
-                                    Employee_Information(userID_Employee,userID_Admin, email, password, "Null", "Null",
-                                    "Null",designation,"null");
-                            databaseReference1.child("Company_Employee")
+                                    Employee_Information(userID_Employee, userID_Admin, email, password, "Null", "Null",
+                                    "Null", designation, "null");
+                          //admin Login again
+                            FirebaseAuth.getInstance().signOut();
+                            firebaseAuth.signInWithEmailAndPassword(email_Admin, password_Admin)
+                                    .addOnCompleteListener(getActivity(), task1 -> {
+                                        if (task.isSuccessful()) {
+
+                                            databaseReference1.child("Company_Employee")
+                                                    .child(userID_Admin).child(userID_Employee).setValue(employee_information);
+                                            databaseReference2.child("Employee_List").child(userID_Employee).setValue(employee_information);
+
+                                            Fragment fragment = new AddNewEmployee();
+                                            if (fragment != null) {
+                                                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                                                fragmentTransaction.replace(R.id.screen_Area_For_Admin, fragment);
+                                                fragmentTransaction.commit();
+                                            }
+                                            Toast.makeText(getContext(), "Again Login", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(getContext(), "sorry", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });//admin login end
+
+                          /*   databaseReference1.child("Company_Employee")
                                     .child(userID_Admin).child(userID_Employee).setValue(employee_information);
                             databaseReference2.child("Employee_List").child(userID_Employee).setValue(employee_information);
-
-                            Fragment fragment2 = new AddNewEmployee();
+                           Fragment fragment2 = new AddNewEmployee();
                             if (fragment2 != null) {
                                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                                 fragmentTransaction.replace(R.id.screen_Area_For_Admin, fragment2);
                                 fragmentTransaction.commit();
-                            }
+                            }*/
 
 
                             /* FirebaseAuth.getInstance().signOut();
@@ -121,7 +142,7 @@ public class AddNewEmployee extends Fragment {
                                 Toast.makeText(getContext(), "asgfhdjsg", Toast.LENGTH_SHORT).show();
                             }*/
                             //again Login by Admin
-                            firebaseAuth.signInWithEmailAndPassword(email_Admin, password_Admin)
+                         /*   firebaseAuth.signInWithEmailAndPassword(email_Admin, password_Admin)
                                     .addOnCompleteListener(getActivity(), task1 -> {
                                         if (task.isSuccessful()) {
                                             Fragment fragment = new AddNewEmployee();
@@ -134,7 +155,7 @@ public class AddNewEmployee extends Fragment {
                                         } else {
                                             Toast.makeText(getContext(), "sorry", Toast.LENGTH_SHORT).show();
                                         }
-                                    });
+                                    });*/
                         } else {
                             Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
                         }

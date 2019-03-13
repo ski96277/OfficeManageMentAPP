@@ -1,5 +1,6 @@
 package com.rocketechit.officemanagementapp.Activity;
 
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -42,8 +43,8 @@ public class SignUPActivity extends AppCompatActivity {
     Button signUpBtn;
     @BindView(R.id.go_login)
     TextView goLogin;
-    @BindView(R.id.registration_progress)
-    ProgressBar registrationProgress;
+
+    ProgressDialog registrationProgress;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
@@ -57,6 +58,11 @@ public class SignUPActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         ButterKnife.bind(this);
+
+        registrationProgress = new ProgressDialog(this);
+        registrationProgress.setTitle("SignUp loading...");
+
+        registrationProgress.setCancelable(false);
 
         initialize();
     }
@@ -118,7 +124,7 @@ public class SignUPActivity extends AppCompatActivity {
                     companyOfficeTimeEnd.setError("office Time End ?");
                     return;
                 }
-                registrationProgress.setVisibility(View.VISIBLE);
+                registrationProgress.show();
 
                 if (CheckNetwork.isInternetAvailable(this)) {
                     firebaseAuth.createUserWithEmailAndPassword(company_email, company_password)
@@ -129,19 +135,19 @@ public class SignUPActivity extends AppCompatActivity {
                                     Company_Information company_information = new Company_Information(company_name, company_email,
                                             company_password, company_phone, company_start_time, company_end_time, userID);
 
-                                    registrationProgress.setVisibility(View.GONE);
+                                    registrationProgress.dismiss();
                                     databaseReference.child("Company").child(userID).setValue(company_information);
                                     Toast.makeText(SignUPActivity.this, "Success", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(SignUPActivity.this,MainActivity_Admin.class));
                                     finish();
                                 } else {
-                                    registrationProgress.setVisibility(View.GONE);
+                                    registrationProgress.dismiss();
                                     Toast.makeText(SignUPActivity.this, "Failed to SignUp", Toast.LENGTH_SHORT).show();
                                 }
                             });
 
                 } else {
-                    registrationProgress.setVisibility(View.GONE);
+                    registrationProgress.dismiss();
                     Toast.makeText(this, "NetWork Error", Toast.LENGTH_SHORT).show();
                 }
 

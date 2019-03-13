@@ -1,9 +1,11 @@
 package com.rocketechit.officemanagementapp.FragmentClass.Admin;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,7 +36,8 @@ public class EmployeeList extends Fragment {
     DatabaseReference databaseReference;
     String userID;
 
-    List<Employee_Information> employee_informations= new ArrayList<Employee_Information>();;
+    List<Employee_Information> employee_informations = new ArrayList<Employee_Information>();
+
 
     @BindView(R.id.employee_list_Recycler_ID)
     RecyclerView employeeListRecyclerID;
@@ -65,6 +68,7 @@ public class EmployeeList extends Fragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         employeeListRecyclerID.setLayoutManager(gridLayoutManager);
         EmployeeList_Adapter adapterClass_recycler = new EmployeeList_Adapter(getContext(), employee_informations);
+
         employeeListRecyclerID.setAdapter(adapterClass_recycler);
 
         adapterClass_recycler.setOnItemClickListener(new EmployeeList_Adapter.ClickListener() {
@@ -102,8 +106,6 @@ public class EmployeeList extends Fragment {
 
             }
         });
-
-
     }
 
     //get Employee Information as a list
@@ -111,9 +113,11 @@ public class EmployeeList extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                employee_informations.clear();
                 for (DataSnapshot snapshot : dataSnapshot.child("Company_Employee").child(userID).getChildren()) {
 
                     Employee_Information employee_information = snapshot.getValue(Employee_Information.class);
+
                     employee_informations.add(employee_information);
                 }
             }

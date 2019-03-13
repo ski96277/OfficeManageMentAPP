@@ -44,11 +44,9 @@ public class MainActivity_Admin extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         // default fragment set up
         Fragment fragment1 = new EmployeeList();
-        Toast.makeText(this, "+call the", Toast.LENGTH_SHORT).show();
 
-        if (fragment1!=null){
+        if (fragment1 != null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.replace(R.id.screen_Area_For_Admin, fragment1);
             fragmentTransaction.commit();
         }
@@ -78,12 +76,12 @@ public class MainActivity_Admin extends AppCompatActivity
 
         switch (id) {
             case R.id.add_New_Employee:
-                 fragment = new AddNewEmployee();
-               fragmentReplace(fragment);
+                fragment = new AddNewEmployee();
+                fragmentReplace(fragment);
                 break;
             case R.id.add_Event:
-                 fragment = new AddEvent_F();
-               fragmentReplace(fragment);
+                fragment = new AddEvent_F();
+                fragmentReplace(fragment);
                 break;
             case R.id.sign_out_Admin:
                 FirebaseAuth.getInstance().signOut();
