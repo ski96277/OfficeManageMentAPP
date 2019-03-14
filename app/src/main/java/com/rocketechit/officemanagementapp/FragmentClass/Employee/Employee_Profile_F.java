@@ -108,20 +108,7 @@ public class Employee_Profile_F extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });/*    databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                employee_information = dataSnapshot.child("Employee_List").child(getUserID()).getValue(Employee_Information.class);
-
-                myCallBack.onCallBack(employee_information);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });*/
-
+        });
     }
 
     @OnClick(R.id.employee_profileview_Edit_button)
