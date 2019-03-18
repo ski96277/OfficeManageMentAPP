@@ -57,5 +57,6 @@ dependencies {
 
     //glide image
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.0'
+
 }
 apply plugin: 'com.google.gms.google-services'
