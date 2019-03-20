@@ -36,6 +36,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import es.dmoral.toasty.Toasty;
 
 public class Employee_profile_view_by_admin extends Fragment {
 
@@ -100,12 +101,7 @@ public class Employee_profile_view_by_admin extends Fragment {
                 , spinner_year.getSelectedItem().toString(), new GetAttendanceList() {
                     @Override
                     public void get_Date(List<String> date, List<String> entry_Time, List<String> exit_Time) {
-                       /* Toast.makeText(getContext(), "key - " + date.size(), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getContext(), "entry - " + entry_Time.size(), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getContext(), "exit - " + exit_Time.size(), Toast.LENGTH_SHORT).show();
-                        Log.e("TAG", "get_Date: key "+date.size() );
-                        Log.e("TAG", "get_Date: entry "+entry_Time.size() );
-                        Log.e("TAG", "get_Date: exit "+exit_Time.size() );*/
+
 callAdapter(date,entry_Time,exit_Time);
 
                     }
@@ -120,12 +116,7 @@ callAdapter(date,entry_Time,exit_Time);
                             @Override
                             public void get_Date(List<String> date, List<String> entry_Time, List<String> exit_Time) {
 
-                               /* Toast.makeText(getContext(), "key - " + date.size(), Toast.LENGTH_SHORT).show();
-                                Toast.makeText(getContext(), "entry - " + entry_Time.size(), Toast.LENGTH_SHORT).show();
-                                Toast.makeText(getContext(), "exit - " + exit_Time.size(), Toast.LENGTH_SHORT).show();
-                                Log.e("TAG", "get_Date: key "+date.size() );
-                                Log.e("TAG", "get_Date: entry "+entry_Time.size() );
-                                Log.e("TAG", "get_Date: exit "+exit_Time.size() );*/
+
                                 callAdapter(date,entry_Time,exit_Time);
                             }
                         });
@@ -133,7 +124,8 @@ callAdapter(date,entry_Time,exit_Time);
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Toast.makeText(getContext(), "No Selected", Toast.LENGTH_SHORT).show();
+                Toasty.info(getContext(), "No Selected", Toast.LENGTH_SHORT, true).show();
+
             }
         });
         //set on selected item in spinner year
@@ -144,12 +136,7 @@ callAdapter(date,entry_Time,exit_Time);
                         spinner_year.getSelectedItem().toString(), new GetAttendanceList() {
                             @Override
                             public void get_Date(List<String> date, List<String> entry_Time, List<String> exit_Time) {
-                                /*Toast.makeText(getContext(), "key - " + date.size(), Toast.LENGTH_SHORT).show();
-                                Toast.makeText(getContext(), "entry - " + entry_Time.size(), Toast.LENGTH_SHORT).show();
-                                Toast.makeText(getContext(), "exit - " + exit_Time.size(), Toast.LENGTH_SHORT).show();
-                                Log.e("TAG", "get_Date: key "+date.size() );
-                                Log.e("TAG", "get_Date: entry "+entry_Time.size() );
-                                Log.e("TAG", "get_Date: exit "+exit_Time.size() );*/
+
                                 callAdapter(date,entry_Time,exit_Time);
                             }
                         });
@@ -158,15 +145,14 @@ callAdapter(date,entry_Time,exit_Time);
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Toast.makeText(getContext(), "No Selected", Toast.LENGTH_SHORT).show();
+                Toasty.info(getContext(), "No Selected", Toast.LENGTH_SHORT, true).show();
             }
         });
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         attendanceTableID.setLayoutManager(linearLayoutManager);
-        /*Attandence_List_Adapter attandence_list_adapter=new Attandence_List_Adapter(getContext(),
-                keyList,entry_Time,exit_Time);*/
+
     }
 
     private void callAdapter(List<String> date, List<String> entry_time, List<String> exit_time) {
@@ -254,22 +240,6 @@ callAdapter(date,entry_Time,exit_Time);
 
                             getAttendanceList.get_Date(keyList, entry_Time, exit_Time);
 
-
-                           /* databaseReference3.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    Toast.makeText(getContext(), "key - "+keyList.size(), Toast.LENGTH_SHORT).show();
-                                    Toast.makeText(getContext(), "entry -  "+entry_Time.size(), Toast.LENGTH_SHORT).show();
-                                    Toast.makeText(getContext(), "exit - "+exit_Time.size(), Toast.LENGTH_SHORT).show();
-
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                }
-                            });*/
-
                         }
 
                         @Override
@@ -287,8 +257,6 @@ callAdapter(date,entry_Time,exit_Time);
             }
         });//first Data
     }
-
-
     // the create options menu with a MenuInflater to have the menu from your fragment
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

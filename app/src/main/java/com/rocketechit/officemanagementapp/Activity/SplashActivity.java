@@ -3,6 +3,7 @@ package com.rocketechit.officemanagementapp.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.ButterKnife;
+import es.dmoral.toasty.Toasty;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,7 +38,8 @@ public class SplashActivity extends AppCompatActivity {
         if (CheckNetwork.isInternetAvailable(this)) {
             checkUserID();
         } else {
-            Toast.makeText(this, "Check Internet", Toast.LENGTH_SHORT).show();
+            Toasty.error(this, "Check Internet", Toast.LENGTH_SHORT, true).show();
+
         }
     }
 

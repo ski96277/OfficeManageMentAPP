@@ -23,7 +23,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
@@ -31,32 +31,27 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
-
     //Butter knife
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
-
     //firebase
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-auth:16.0.3'
     implementation 'com.google.firebase:firebase-database:16.0.1'
     implementation 'com.google.firebase:firebase-storage:16.0.1'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
-
     //picasso fg
     implementation 'com.squareup.picasso:picasso:2.71828'
     //circle image view
     implementation 'de.hdodenhof:circleimageview:3.0.0'
-//custom calender
+    //custom calender
     implementation 'sun.bob:mcalendarview:1.0.0'
-
     //scanner
-
     implementation 'com.google.zxing:core:3.2.1'
     implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
-
     //glide image
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.0'
-
+    //Toast library
+    implementation 'com.github.GrenderG:Toasty:1.4.1'
 }
 apply plugin: 'com.google.gms.google-services'

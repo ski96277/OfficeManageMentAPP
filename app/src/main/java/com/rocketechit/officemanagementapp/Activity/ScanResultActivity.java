@@ -101,7 +101,7 @@ public class ScanResultActivity extends AppCompatActivity {
                     Toast.makeText(this, "Submitted", Toast.LENGTH_SHORT).show();
 
                     databaseReference.child("Attendance").child(getUserID())
-                            .child(String.valueOf(year)).child(String.valueOf(month))
+                            .child(String.valueOf(year)).child(String.valueOf(month+1))
                             .child(String.valueOf(day)).child("Entry").child("entryTime").setValue(entryTimeTV_ID.getText().toString());
 
                 } else if (title.equals("Your Exit Time")) {
@@ -114,7 +114,7 @@ public class ScanResultActivity extends AppCompatActivity {
                     Toast.makeText(this, "Submitted", Toast.LENGTH_SHORT).show();
 
                     databaseReference.child("Attendance").child(getUserID())
-                            .child(String.valueOf(year)).child(String.valueOf(month))
+                            .child(String.valueOf(year)).child(String.valueOf(month+1))
                             .child(String.valueOf(day)).child("Exit").child("exitTime").setValue(entryTimeTV_ID.getText().toString());
 
 

@@ -1,6 +1,7 @@
 package com.rocketechit.officemanagementapp.FragmentClass.Admin;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import es.dmoral.toasty.Toasty;
 
 public class AddNewEmployee extends Fragment {
     @BindView(R.id.add_employee_Email)
@@ -119,45 +121,13 @@ public class AddNewEmployee extends Fragment {
                                                 fragmentTransaction.replace(R.id.screen_Area_For_Admin, fragment);
                                                 fragmentTransaction.commit();
                                             }
-                                            Toast.makeText(getContext(), "Again Login", Toast.LENGTH_SHORT).show();
+                                            Log.e("TAG", "onViewClicked: "+"Again Login" );
                                         } else {
                                             Toast.makeText(getContext(), "sorry", Toast.LENGTH_SHORT).show();
                                         }
-                                    });//admin login end
-
-                          /*   databaseReference1.child("Company_Employee")
-                                    .child(userID_Admin).child(userID_Employee).setValue(employee_information);
-                            databaseReference2.child("Employee_List").child(userID_Employee).setValue(employee_information);
-                           Fragment fragment2 = new AddNewEmployee();
-                            if (fragment2 != null) {
-                                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction.replace(R.id.screen_Area_For_Admin, fragment2);
-                                fragmentTransaction.commit();
-                            }*/
-
-
-                            /* FirebaseAuth.getInstance().signOut();
-                            FirebaseUser firebaseUser1 = firebaseAuth.getCurrentUser();
-                            if (firebaseUser1.getUid() == null) {
-                                Toast.makeText(getContext(), "asgfhdjsg", Toast.LENGTH_SHORT).show();
-                            }*/
-                            //again Login by Admin
-                         /*   firebaseAuth.signInWithEmailAndPassword(email_Admin, password_Admin)
-                                    .addOnCompleteListener(getActivity(), task1 -> {
-                                        if (task.isSuccessful()) {
-                                            Fragment fragment = new AddNewEmployee();
-                                            if (fragment != null) {
-                                                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                                                fragmentTransaction.replace(R.id.screen_Area_For_Admin, fragment);
-                                                fragmentTransaction.commit();
-                                            }
-                                            Toast.makeText(getContext(), "Again Login", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            Toast.makeText(getContext(), "sorry", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });*/
+                                    });
                         } else {
-                            Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+                            Toasty.error(getContext(), "Failed.", Toast.LENGTH_SHORT, true).show();
                         }
                     });
         }

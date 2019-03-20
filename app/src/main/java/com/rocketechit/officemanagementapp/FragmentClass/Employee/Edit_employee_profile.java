@@ -42,6 +42,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import es.dmoral.toasty.Toasty;
 
 public class Edit_employee_profile extends Fragment {
 
@@ -134,7 +135,7 @@ public class Edit_employee_profile extends Fragment {
 
                     }
                 } else {
-                    Toast.makeText(getContext(), "check internet ", Toast.LENGTH_SHORT).show();
+                    Toasty.info(getContext(), "Check Internet", Toast.LENGTH_SHORT, true).show();
                 }
 
                 break;

@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import es.dmoral.toasty.Toasty;
 import sun.bob.mcalendarview.MCalendarView;
 import sun.bob.mcalendarview.listeners.OnDateClickListener;
 import sun.bob.mcalendarview.vo.DateData;
@@ -75,19 +76,6 @@ public class AddEvent_F extends Fragment {
 
             }
         });
-
-
-//        mCalendarView.markDate(2019, 3, 10);
-//mark as a list
-       /* ArrayList<DateData> dates=new ArrayList<>();
-        dates.add(new DateData(2018,04,26));
-        dates.add(new DateData(2018,04,27));
-
-        for(int i=0;i<dates.size();i++) {
-            mCalendarView.markDate(dates.get(i).getYear(),dates.get(i).getMonth(),dates.get(i).getDay());//mark multiple dates with this code.
-        }*/
-
-
         calenderViewID.setOnDateClickListener(new OnDateClickListener() {
             @Override
             public void onDateClick(View view, DateData date) {
@@ -150,7 +138,8 @@ public class AddEvent_F extends Fragment {
                                 String description = descriptionET.getText().toString();
                                 EventClass eventClass = new EventClass(title, description, datew, year, month, day);
                                 databaseReference.child("Event_List").child(userID).child(datew).setValue(eventClass);
-                                Toast.makeText(getContext(), "Event Added", Toast.LENGTH_SHORT).show();
+                                Toasty.success(getContext(), "Event Added!", Toast.LENGTH_SHORT, true).show();
+
 
                             }).setNegativeButton("Cancel", (dialog, which) -> alertDialogBuilder.setCancelable(true)).show();
                 }

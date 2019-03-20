@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import es.dmoral.toasty.Toasty;
 
 public class SignUPActivity extends AppCompatActivity {
 
@@ -142,13 +143,14 @@ public class SignUPActivity extends AppCompatActivity {
                                     finish();
                                 } else {
                                     registrationProgress.dismiss();
-                                    Toast.makeText(SignUPActivity.this, "Failed to SignUp", Toast.LENGTH_SHORT).show();
+                                    Toasty.error(this, "Failed to SignUp", Toast.LENGTH_SHORT, true).show();
                                 }
                             });
 
                 } else {
                     registrationProgress.dismiss();
-                    Toast.makeText(this, "NetWork Error", Toast.LENGTH_SHORT).show();
+                    Toasty.error(this, "NetWork Error", Toast.LENGTH_SHORT, true).show();
+
                 }
 
                 break;

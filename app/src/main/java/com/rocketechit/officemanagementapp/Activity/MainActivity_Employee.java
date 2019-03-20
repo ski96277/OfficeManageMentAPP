@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.rocketechit.officemanagementapp.FragmentClass.Admin.Employee_Information_F;
 import com.rocketechit.officemanagementapp.FragmentClass.Employee.Employee_Home;
 import com.rocketechit.officemanagementapp.FragmentClass.Employee.Employee_Profile_F;
 import com.rocketechit.officemanagementapp.FragmentClass.Employee.ViewCalender_F;
@@ -89,14 +90,6 @@ public class MainActivity_Employee extends AppCompatActivity
             case R.id.view_calender_Employee:
                 fragment = new ViewCalender_F();
                 fragmentReplace(fragment);
-                /*if (fragment!=null){
-
-                    FragmentManager fragmentManager=getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-                    fragmentTransaction.addToBackStack("");
-                    fragmentTransaction.replace(R.id.screen_Area_For_Employee,fragment);
-                    fragmentTransaction.commit();
-                }*/
                 break;
             case R.id.view_profile_Employee:
 

@@ -1,10 +1,10 @@
 package com.rocketechit.officemanagementapp.FragmentClass.Admin;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +29,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import es.dmoral.toasty.Toasty;
 
 public class EmployeeList extends Fragment {
 
@@ -43,10 +45,11 @@ public class EmployeeList extends Fragment {
     RecyclerView employeeListRecyclerID;
 
     View view;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (view==null){
+        if (view == null) {
             view = inflater.inflate(R.layout.employee_list, null);
         }
         ButterKnife.bind(this, view);
@@ -63,12 +66,16 @@ public class EmployeeList extends Fragment {
         userID = getUserID();
 //get Employee Information as a list
         employee_informations = getUserData();
+        if (employee_informations.isEmpty()){
+            Toasty.info(getContext(), "Click menu to Add new User", Toast.LENGTH_SHORT, true).show();
+        }
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         employeeListRecyclerID.setLayoutManager(gridLayoutManager);
         EmployeeList_Adapter adapterClass_recycler = new EmployeeList_Adapter(getContext(), employee_informations);
 
-        employeeListRecyclerID.setAdapter(adapterClass_recycler);
+    employeeListRecyclerID.setAdapter(adapterClass_recycler);
+
 
         adapterClass_recycler.setOnItemClickListener(new EmployeeList_Adapter.ClickListener() {
             @Override
@@ -140,5 +147,4 @@ public class EmployeeList extends Fragment {
         String userID = firebaseUser.getUid();
         return userID;
     }
-
 }

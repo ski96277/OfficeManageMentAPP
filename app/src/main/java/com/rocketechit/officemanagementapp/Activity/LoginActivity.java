@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import es.dmoral.toasty.Toasty;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -78,15 +79,18 @@ public class LoginActivity extends AppCompatActivity {
                                     if (CheckNetwork.isInternetAvailable(this)) {
                                         checkUserID();
                                     } else {
-                                        Toast.makeText(this, "Internet Error", Toast.LENGTH_SHORT).show();
+                                        Toasty.error(this, "Internet Error", Toast.LENGTH_SHORT, true).show();
+
                                     }
                                 } else {
                                     loginProgress.setVisibility(View.GONE);
-                                    Toast.makeText(LoginActivity.this, "Failed to Login", Toast.LENGTH_SHORT).show();
+                                    Toasty.error(this, "Failed to Login", Toast.LENGTH_SHORT, true).show();
+
                                 }
                             });
                 } else {
-                    Toast.makeText(this, "NetWork Error", Toast.LENGTH_SHORT).show();
+                    Toasty.error(this, "NetWork Error", Toast.LENGTH_SHORT, true).show();
+
                 }
                 break;
             case R.id.Go_signupTV:
