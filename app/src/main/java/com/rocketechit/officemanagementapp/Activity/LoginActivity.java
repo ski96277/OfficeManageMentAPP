@@ -121,6 +121,11 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(new Intent(LoginActivity.this, MainActivity_Employee.class));
                         finish();
                     }
+                    if (dataSnapshot.child("Receptionist").hasChild(userID)){
+                        Toasty.success(LoginActivity.this,"Receptionist Login",Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(LoginActivity.this,ReceptionistActivity.class));
+                        finish();
+                    }
                 }
 
                 @Override

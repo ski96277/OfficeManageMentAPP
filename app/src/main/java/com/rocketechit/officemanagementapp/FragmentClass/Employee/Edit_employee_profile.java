@@ -1,7 +1,6 @@
 package com.rocketechit.officemanagementapp.FragmentClass.Employee;
 
-import android.app.Activity;
-import android.app.DatePickerDialog;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.icu.util.Calendar;
@@ -12,18 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.flags.IFlagProvider;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -31,8 +25,6 @@ import com.rocketechit.officemanagementapp.JavaClass.CheckNetwork;
 import com.rocketechit.officemanagementapp.JavaClass.Employee_Information;
 import com.rocketechit.officemanagementapp.R;
 import com.squareup.picasso.Picasso;
-
-import java.net.URL;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

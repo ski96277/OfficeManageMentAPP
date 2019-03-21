@@ -21,7 +21,6 @@ android {
         }
     }
 }
-
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
@@ -53,5 +52,6 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.0'
     //Toast library
     implementation 'com.github.GrenderG:Toasty:1.4.1'
+
 }
 apply plugin: 'com.google.gms.google-services'

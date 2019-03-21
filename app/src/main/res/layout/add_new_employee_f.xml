@@ -6,10 +6,17 @@
     android:gravity="center"
     android:orientation="vertical">
 
+    <ProgressBar
+        android:id="@+id/progressbar_employee_add"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="gone" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#4a5a71" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,9 +41,9 @@
             android:hint="E-mail"
             android:inputType="textEmailAddress"
             android:letterSpacing="0.1"
+            android:maxLines="1"
             android:paddingLeft="5dp"
             android:textColor="#000"
-            android:maxLines="1"
             android:textColorHint="#000000"
             android:textSize="@dimen/edit_text_size" />
     </LinearLayout>
@@ -45,6 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#4a5a71" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,17 +76,21 @@
             android:layout_marginLeft="15dp"
             android:background="#00000000"
             android:hint="Employee designation"
+            android:inputType="text"
             android:letterSpacing="0.1"
-            android:paddingLeft="5dp"
             android:maxLines="1"
+            android:paddingLeft="5dp"
             android:textColor="#000"
             android:textColorHint="#000000"
             android:textSize="@dimen/edit_text_size" />
     </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#4a5a71" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -89,15 +101,15 @@
             android:id="@+id/add_employee_button_ID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
+            android:backgroundTint="@color/black_color"
             android:paddingLeft="30dp"
-            android:paddingBottom="15dp"
             android:paddingTop="15dp"
             android:paddingRight="30dp"
+            android:paddingBottom="15dp"
             android:text="Add Employee"
             android:textAllCaps="false"
-            android:backgroundTint="@color/black_color"
             android:textColor="#FFF"
-            android:background="@drawable/button_background"
             android:textSize="@dimen/button_text_size" />
     </LinearLayout>
 

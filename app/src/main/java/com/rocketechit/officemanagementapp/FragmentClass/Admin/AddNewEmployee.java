@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,7 +23,6 @@ import com.rocketechit.officemanagementapp.R;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -41,6 +41,8 @@ public class AddNewEmployee extends Fragment {
     String email_Admin;
     String password_Admin;
     String password = "123456";
+    @BindView(R.id.progressbar_employee_add)
+    ProgressBar progressbarEmployeeAdd;
 
     @Nullable
     @Override
@@ -96,7 +98,8 @@ public class AddNewEmployee extends Fragment {
         }
 
         if (CheckNetwork.isInternetAvailable(getContext())) {
-
+            //progressbar start
+            progressbarEmployeeAdd.setVisibility(View.VISIBLE);
             firebaseAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(getActivity(), task -> {
                         if (task.isSuccessful()) {
@@ -105,7 +108,7 @@ public class AddNewEmployee extends Fragment {
                             Employee_Information employee_information = new
                                     Employee_Information(userID_Employee, userID_Admin, email, password, "Null", "Null",
                                     "Null", designation, "null");
-                          //admin Login again
+                            //admin Login again
                             FirebaseAuth.getInstance().signOut();
                             firebaseAuth.signInWithEmailAndPassword(email_Admin, password_Admin)
                                     .addOnCompleteListener(getActivity(), task1 -> {
@@ -115,13 +118,15 @@ public class AddNewEmployee extends Fragment {
                                                     .child(userID_Admin).child(userID_Employee).setValue(employee_information);
                                             databaseReference2.child("Employee_List").child(userID_Employee).setValue(employee_information);
 
-                                            Fragment fragment = new AddNewEmployee();
+                                         /*   Fragment fragment = new AddNewEmployee();
                                             if (fragment != null) {
                                                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                                                 fragmentTransaction.replace(R.id.screen_Area_For_Admin, fragment);
                                                 fragmentTransaction.commit();
-                                            }
-                                            Log.e("TAG", "onViewClicked: "+"Again Login" );
+                                            }*/
+                                            //progressbar start
+                                            progressbarEmployeeAdd.setVisibility(View.GONE);
+                                            Log.e("TAG", "onViewClicked: " + "Again Login");
                                         } else {
                                             Toast.makeText(getContext(), "sorry", Toast.LENGTH_SHORT).show();
                                         }
@@ -131,6 +136,6 @@ public class AddNewEmployee extends Fragment {
                         }
                     });
         }
-
     }
+
 }

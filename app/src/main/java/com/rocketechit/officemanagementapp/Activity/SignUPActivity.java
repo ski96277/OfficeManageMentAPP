@@ -138,7 +138,7 @@ public class SignUPActivity extends AppCompatActivity {
 
                                     registrationProgress.dismiss();
                                     databaseReference.child("Company").child(userID).setValue(company_information);
-                                    Toast.makeText(SignUPActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                                    Toasty.success(this, "Success", Toast.LENGTH_SHORT, true).show();
                                     startActivity(new Intent(SignUPActivity.this,MainActivity_Admin.class));
                                     finish();
                                 } else {
