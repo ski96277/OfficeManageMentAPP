@@ -120,11 +120,12 @@ public class LoginActivity extends AppCompatActivity {
                         loginProgress.setVisibility(View.GONE);
                         startActivity(new Intent(LoginActivity.this, MainActivity_Employee.class));
                         finish();
+                        Toasty.success(LoginActivity.this,"Success",Toasty.LENGTH_SHORT).show();
                     }
                     if (dataSnapshot.child("Receptionist").hasChild(userID)){
-                        Toasty.success(LoginActivity.this,"Receptionist Login",Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LoginActivity.this,ReceptionistActivity.class));
-                        finish();
+                        Toasty.success(LoginActivity.this,"Please Login other app",Toast.LENGTH_SHORT).show();
+                        FirebaseAuth.getInstance().signOut();
+
                     }
                 }
 

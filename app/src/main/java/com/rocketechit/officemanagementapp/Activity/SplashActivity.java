@@ -61,11 +61,9 @@ public class SplashActivity extends AppCompatActivity {
                         startActivity(new Intent(SplashActivity.this, MainActivity_Employee.class));
                         finish();
                     }
-                    if (dataSnapshot.child("Receptionist").hasChild(userID)){
-                        Toasty.success(SplashActivity.this,"Receptionist Login",Toast.LENGTH_SHORT).show();
-
-                        startActivity(new Intent(SplashActivity.this,ReceptionistActivity.class));
-                        finish();
+                    if (dataSnapshot.child("Receptionist").hasChild(userID)) {
+                        Toasty.success(SplashActivity.this, "Please Login other app", Toast.LENGTH_SHORT).show();
+                        FirebaseAuth.getInstance().signOut();
                     }
                 }
 

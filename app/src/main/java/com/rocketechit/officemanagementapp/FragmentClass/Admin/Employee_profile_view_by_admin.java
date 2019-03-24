@@ -63,7 +63,6 @@ public class Employee_profile_view_by_admin extends Fragment {
     List<String> exit_Time;
 
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -102,7 +101,7 @@ public class Employee_profile_view_by_admin extends Fragment {
                     @Override
                     public void get_Date(List<String> date, List<String> entry_Time, List<String> exit_Time) {
 
-callAdapter(date,entry_Time,exit_Time);
+                        callAdapter(date, entry_Time, exit_Time);
 
                     }
                 });
@@ -117,7 +116,7 @@ callAdapter(date,entry_Time,exit_Time);
                             public void get_Date(List<String> date, List<String> entry_Time, List<String> exit_Time) {
 
 
-                                callAdapter(date,entry_Time,exit_Time);
+                                callAdapter(date, entry_Time, exit_Time);
                             }
                         });
             }
@@ -137,7 +136,7 @@ callAdapter(date,entry_Time,exit_Time);
                             @Override
                             public void get_Date(List<String> date, List<String> entry_Time, List<String> exit_Time) {
 
-                                callAdapter(date,entry_Time,exit_Time);
+                                callAdapter(date, entry_Time, exit_Time);
                             }
                         });
 
@@ -156,8 +155,8 @@ callAdapter(date,entry_Time,exit_Time);
     }
 
     private void callAdapter(List<String> date, List<String> entry_time, List<String> exit_time) {
-        Attandence_List_Adapter attandence_list_adapter=new Attandence_List_Adapter(getContext(),date,
-                entry_time,exit_time);
+        Attandence_List_Adapter attandence_list_adapter = new Attandence_List_Adapter(getContext(), date,
+                entry_time, exit_time);
         attendanceTableID.setAdapter(attandence_list_adapter);
         attandence_list_adapter.setOnItemClickListener(new Attandence_List_Adapter.ClickListener() {
             @Override
@@ -257,6 +256,7 @@ callAdapter(date,entry_Time,exit_Time);
             }
         });//first Data
     }
+
     // the create options menu with a MenuInflater to have the menu from your fragment
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

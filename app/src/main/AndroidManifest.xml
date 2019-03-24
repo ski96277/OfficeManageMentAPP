@@ -14,7 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.ReceptionistActivity" android:screenOrientation="portrait"></activity>
         <activity
             android:name=".Activity.SplashActivity"
             android:screenOrientation="portrait">

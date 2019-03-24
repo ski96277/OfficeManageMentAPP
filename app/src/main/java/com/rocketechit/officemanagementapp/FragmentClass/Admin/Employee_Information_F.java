@@ -70,7 +70,7 @@ public class Employee_Information_F extends Fragment {
             case R.id.employee_information_email_button:
 
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + employee_information.getEmail_Employee()));
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "RocketechIT ");
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "RocketechIT");
 
                 startActivity(Intent.createChooser(emailIntent, "Chooser Title"));
 

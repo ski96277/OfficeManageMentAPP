@@ -2,39 +2,47 @@ package com.rocketechit.officemanagementapp.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.rocketechit.officemanagementapp.JavaClass.Entry_Exit_Time;
 import com.rocketechit.officemanagementapp.R;
 
 import java.util.Calendar;
 import java.util.TimeZone;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import es.dmoral.toasty.Toasty;
 
 public class ScanResultActivity extends AppCompatActivity {
 
     @BindView(R.id.textView3)
     TextView titleTV_ID;
     @BindView(R.id.EntryTime_id)
-    TextView entryTimeTV_ID;
+    TextView entry_TimeTV_ID;
 
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
-    String title;
+    String title = null;
+    String scanresult = null;
+    String am_pm_St = null;
+    String time = null;
 
 
     @Override
@@ -62,8 +70,6 @@ public class ScanResultActivity extends AppCompatActivity {
         integrator.setBeepEnabled(false);
         integrator.setBarcodeImageEnabled(false);
         integrator.initiateScan();
-
-
     }
 
     // Get the results:
@@ -76,7 +82,25 @@ public class ScanResultActivity extends AppCompatActivity {
                 startActivity(new Intent(this, MainActivity_Employee.class));
                 finish();
             } else {
-                entryTimeTV_ID.setText(result.getContents());
+                scanresult = result.getContents();
+
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String value = dataSnapshot.child("QRCode").child("number").getValue().toString();
+                        if (!scanresult.equals(value)) {
+                            Toasty.error(ScanResultActivity.this, "QR code is not Right", Toasty.LENGTH_LONG).show();
+                            startActivity(new Intent(ScanResultActivity.this, MainActivity_Employee.class));
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -95,28 +119,44 @@ public class ScanResultActivity extends AppCompatActivity {
                 if (title.equals("Your Entry Time")) {
 
                     Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-                    int year  = calendar.get(Calendar.YEAR);
-                    int month  = calendar.get(Calendar.MONTH);
-                    int day  = calendar.get(Calendar.DAY_OF_MONTH);
-                    Toast.makeText(this, "Submitted", Toast.LENGTH_SHORT).show();
+                    int year = calendar.get(Calendar.YEAR);
+                    int month = calendar.get(Calendar.MONTH);
+                    int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                    int hour = calendar.get(Calendar.HOUR);
+                    int minute = calendar.get(Calendar.MINUTE);
+                    int am_pm = calendar.get(Calendar.AM_PM);
+                    if (am_pm == 0) {
+                        am_pm_St = "am";
+                    } else if (am_pm == 1) {
+                        am_pm_St = "pm";
+                    }
+
+                    time = String.valueOf(hour + ":" + minute + " " + am_pm_St);
 
                     databaseReference.child("Attendance").child(getUserID())
-                            .child(String.valueOf(year)).child(String.valueOf(month+1))
-                            .child(String.valueOf(day)).child("Entry").child("entryTime").setValue(entryTimeTV_ID.getText().toString());
-
+                            .child(String.valueOf(year)).child(String.valueOf(month + 1))
+                            .child(String.valueOf(day)).child("Entry").child("entryTime").setValue(time);
                 } else if (title.equals("Your Exit Time")) {
-
-
                     Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-                    int year  = calendar.get(Calendar.YEAR);
-                    int month  = calendar.get(Calendar.MONTH);
-                    int day  = calendar.get(Calendar.DAY_OF_MONTH);
-                    Toast.makeText(this, "Submitted", Toast.LENGTH_SHORT).show();
+                    int year = calendar.get(Calendar.YEAR);
+                    int month = calendar.get(Calendar.MONTH);
+                    int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                    int hour = calendar.get(Calendar.HOUR);
+                    int minute = calendar.get(Calendar.MINUTE);
+                    int am_pm = calendar.get(Calendar.AM_PM);
+                    if (am_pm == 0) {
+                        am_pm_St = "am";
+                    } else if (am_pm == 1) {
+                        am_pm_St = "pm";
+                    }
+
+                    time = String.valueOf(hour + ":" + minute + " " + am_pm_St);
 
                     databaseReference.child("Attendance").child(getUserID())
-                            .child(String.valueOf(year)).child(String.valueOf(month+1))
-                            .child(String.valueOf(day)).child("Exit").child("exitTime").setValue(entryTimeTV_ID.getText().toString());
-
+                            .child(String.valueOf(year)).child(String.valueOf(month + 1))
+                            .child(String.valueOf(day)).child("Exit").child("exitTime").setValue(time);
 
 
                 }

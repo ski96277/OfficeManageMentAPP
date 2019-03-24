@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.rocketechit.officemanagementapp.FragmentClass.Admin.Employee_Information_F;
 import com.rocketechit.officemanagementapp.FragmentClass.Employee.Employee_Home;
 import com.rocketechit.officemanagementapp.FragmentClass.Employee.Employee_Profile_F;
+import com.rocketechit.officemanagementapp.FragmentClass.Employee.My_Attendance_F;
 import com.rocketechit.officemanagementapp.FragmentClass.Employee.ViewCalender_F;
 import com.rocketechit.officemanagementapp.R;
 
@@ -35,15 +36,6 @@ public class MainActivity_Employee extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Home Page");
         setSupportActionBar(toolbar);
-
-     /*   FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -94,6 +86,12 @@ public class MainActivity_Employee extends AppCompatActivity
             case R.id.view_profile_Employee:
 
                 fragment = new Employee_Profile_F();
+                fragmentReplace(fragment);
+
+                break;
+            case R.id.view_MY_Attendance:
+
+                fragment = new My_Attendance_F();
                 fragmentReplace(fragment);
 
                 break;

@@ -8,6 +8,11 @@
         android:title="View Event"
         app:showAsAction="never" />
     <item
+        android:id="@+id/view_MY_Attendance"
+        android:orderInCategory="100"
+        android:title="My Attendance"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/view_profile_Employee"
         android:orderInCategory="100"
         android:title="My Profile"
