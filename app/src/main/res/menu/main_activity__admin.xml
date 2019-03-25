@@ -18,6 +18,11 @@
         android:title="Add Event"
         app:showAsAction="never" />
     <item
+        android:id="@+id/change_password_Admin"
+        android:orderInCategory="100"
+        android:title="Change Password"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/sign_out_Admin"
         android:orderInCategory="100"
         android:title="Sign out"

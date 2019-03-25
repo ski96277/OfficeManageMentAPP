@@ -18,6 +18,8 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.rocketechit.officemanagementapp.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -88,9 +90,10 @@ public class ScanResultActivity extends AppCompatActivity {
                 databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String value = dataSnapshot.child("QRCode").child("number").getValue().toString();
+                        String value = null;
+                        value = dataSnapshot.child("QRCode").child("number").getValue().toString();
                         if (!scanresult.equals(value)) {
-                            Toasty.error(ScanResultActivity.this, "QR code is not Right", Toasty.LENGTH_LONG).show();
+//                            Toasty.error(ScanResultActivity.this, "QR code is not Right", Toasty.LENGTH_LONG).show();
                             startActivity(new Intent(ScanResultActivity.this, MainActivity_Employee.class));
                             finish();
                         }
@@ -123,42 +126,32 @@ public class ScanResultActivity extends AppCompatActivity {
                     int month = calendar.get(Calendar.MONTH);
                     int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-                    int hour = calendar.get(Calendar.HOUR);
-                    int minute = calendar.get(Calendar.MINUTE);
-                    int am_pm = calendar.get(Calendar.AM_PM);
-                    if (am_pm == 0) {
-                        am_pm_St = "am";
-                    } else if (am_pm == 1) {
-                        am_pm_St = "pm";
-                    }
 
-                    time = String.valueOf(hour + ":" + minute + " " + am_pm_St);
-
+                    DateFormat df = new SimpleDateFormat("h:mm a");
+                    String time = df.format(Calendar.getInstance().getTime());
+                    Toast.makeText(this, "Entry Time :"+time, Toast.LENGTH_SHORT).show();
                     databaseReference.child("Attendance").child(getUserID())
                             .child(String.valueOf(year)).child(String.valueOf(month + 1))
                             .child(String.valueOf(day)).child("Entry").child("entryTime").setValue(time);
+                    startActivity(new Intent(this, MainActivity_Employee.class));
+                    finish();
+
                 } else if (title.equals("Your Exit Time")) {
                     Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
                     int year = calendar.get(Calendar.YEAR);
                     int month = calendar.get(Calendar.MONTH);
                     int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-                    int hour = calendar.get(Calendar.HOUR);
-                    int minute = calendar.get(Calendar.MINUTE);
-                    int am_pm = calendar.get(Calendar.AM_PM);
-                    if (am_pm == 0) {
-                        am_pm_St = "am";
-                    } else if (am_pm == 1) {
-                        am_pm_St = "pm";
-                    }
 
-                    time = String.valueOf(hour + ":" + minute + " " + am_pm_St);
+                    DateFormat dfa = new SimpleDateFormat("h:mm a");
+                    String time = dfa.format(Calendar.getInstance().getTime());
+                    Toast.makeText(this, "Exit Time :"+time, Toast.LENGTH_SHORT).show();
 
                     databaseReference.child("Attendance").child(getUserID())
                             .child(String.valueOf(year)).child(String.valueOf(month + 1))
                             .child(String.valueOf(day)).child("Exit").child("exitTime").setValue(time);
-
-
+                    startActivity(new Intent(this, MainActivity_Employee.class));
+                    finish();
                 }
 
                 break;

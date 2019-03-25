@@ -149,23 +149,13 @@ public class My_Attendance_F extends Fragment {
 
             }
         });
-        /*attandence_list_adapter.setOnItemClickListener(new Attandence_List_Adapter.ClickListener() {
-            @Override
-            public void onItemClick(int position, View v) {
-
-            }
-
-            @Override
-            public void onItemLongClick(int position, View v) {
-
-            }
-        });
-    */}
+    }
 
     public interface GetAttendanceList {
         public void get_Date(List<String> date, List<String> entry_Time, List<String> exit_Time);
 
     }
+
     private void getAttendenceValue(String month, String year, GetAttendanceList getAttendanceList) {
         String userID_Employee = userID;
 
