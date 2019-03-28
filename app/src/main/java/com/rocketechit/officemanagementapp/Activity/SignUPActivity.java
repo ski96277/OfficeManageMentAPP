@@ -150,8 +150,10 @@ public class SignUPActivity extends AppCompatActivity {
                                     registrationProgress.dismiss();
                                     databaseReference.child("Company").child(userID).setValue(company_information);
                                     Toasty.success(this, "Success", Toast.LENGTH_SHORT, true).show();
-                                    startActivity(new Intent(SignUPActivity.this,MainActivity_Admin.class));
+                                    startActivity(new Intent(SignUPActivity.this, MainActivity_Admin.class));
                                     finish();
+                                    Toasty.info(SignUPActivity.this, "Click menu to Add new User", Toast.LENGTH_SHORT, true).show();
+
                                 } else {
                                     registrationProgress.dismiss();
                                     Toasty.error(this, "Failed to SignUp", Toast.LENGTH_SHORT, true).show();

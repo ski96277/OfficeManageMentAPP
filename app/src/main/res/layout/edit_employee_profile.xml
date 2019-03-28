@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:background="#DBDBDB"
             android:padding="10dp"
-            android:text="....."
+            android:text="...................."
             android:textColor="#000"
             android:textSize="24sp" />
 
@@ -42,9 +42,7 @@
                 android:padding="5dp"
                 android:text="Name: "
                 android:textColor="#000"
-                android:textSize="25sp"
-
-                />
+                android:textSize="25sp"/>
 
             <EditText
                 android:id="@+id/employee_profileview_name_ET"

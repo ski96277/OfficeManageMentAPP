@@ -1,6 +1,5 @@
 package com.rocketechit.officemanagementapp.Activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -9,8 +8,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
-import com.rocketechit.officemanagementapp.FragmentClass.Admin.Employee_Information_F;
 import com.rocketechit.officemanagementapp.FragmentClass.Employee.Employee_Home;
 import com.rocketechit.officemanagementapp.FragmentClass.Employee.Employee_Profile_F;
 import com.rocketechit.officemanagementapp.FragmentClass.Employee.My_Attendance_F;
@@ -19,7 +16,6 @@ import com.rocketechit.officemanagementapp.R;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;

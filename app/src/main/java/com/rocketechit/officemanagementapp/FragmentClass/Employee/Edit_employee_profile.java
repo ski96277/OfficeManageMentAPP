@@ -3,7 +3,6 @@ package com.rocketechit.officemanagementapp.FragmentClass.Employee;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.icu.util.Calendar;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,6 +24,8 @@ import com.rocketechit.officemanagementapp.JavaClass.CheckNetwork;
 import com.rocketechit.officemanagementapp.JavaClass.Employee_Information;
 import com.rocketechit.officemanagementapp.R;
 import com.squareup.picasso.Picasso;
+
+import java.util.Calendar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -94,11 +95,7 @@ public class Edit_employee_profile extends Fragment {
         employeeProfileviewPhoneNumberET.setText(phoneNumber);
         employeeProfileviewEmailET.setText(email);
         employeeProfileviewJoinDateTV.setText(join_date);
-
-
     }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @OnClick({R.id.employee_profileview_image, R.id.employee_profileview_Save_button})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -110,6 +107,8 @@ public class Edit_employee_profile extends Fragment {
                 break;
 
             case R.id.employee_profileview_join_Date_TV:
+                Toast.makeText(getContext(), "select Date", Toast.LENGTH_SHORT).show();
+
                 selectDate();
                 break;
 
@@ -160,8 +159,8 @@ public class Edit_employee_profile extends Fragment {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void selectDate() {
+        Toast.makeText(getContext(), "select Date", Toast.LENGTH_SHORT).show();
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);

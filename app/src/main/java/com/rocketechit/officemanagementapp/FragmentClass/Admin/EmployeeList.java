@@ -66,10 +66,6 @@ public class EmployeeList extends Fragment {
         userID = getUserID();
 //get Employee Information as a list
         employee_informations = getUserData();
-        if (employee_informations.isEmpty()){
-            Toasty.info(getContext(), "Click menu to Add new User", Toast.LENGTH_SHORT, true).show();
-        }
-
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         employeeListRecyclerID.setLayoutManager(gridLayoutManager);
         EmployeeList_Adapter adapterClass_recycler = new EmployeeList_Adapter(getContext(), employee_informations);
