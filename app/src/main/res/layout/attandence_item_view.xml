@@ -19,7 +19,7 @@
             android:gravity="center"
             android:text="12"
             android:textColor="#EC1313"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/entryTime_attendance_TV"
@@ -31,7 +31,7 @@
             android:gravity="center"
             android:text="10.00am"
             android:textColor="#EC1313"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/exitTime_attendance_TV"
@@ -43,7 +43,7 @@
             android:gravity="center"
             android:text="6.00am"
             android:textColor="#EC1313"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

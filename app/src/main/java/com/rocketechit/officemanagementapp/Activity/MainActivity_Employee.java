@@ -29,8 +29,7 @@ import es.dmoral.toasty.Toasty;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity_Employee extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity_Employee extends AppCompatActivity{
 
     Fragment fragment = null;
 
@@ -41,15 +40,15 @@ public class MainActivity_Employee extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Home Page");
         setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//Navigation off
+      /*  DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(this);*/
 
         //set default Fragment
         fragment = new Employee_Home();
@@ -113,7 +112,8 @@ public class MainActivity_Employee extends AppCompatActivity
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
-    @Override
+    // Navigation off
+/*    @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
@@ -135,7 +135,7 @@ public class MainActivity_Employee extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
+    }*/
 
     //replace Fragment name
     private void fragmentReplace(Fragment fragment) {
