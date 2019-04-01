@@ -53,12 +53,9 @@ public class ViewCalender_F extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 //get Company User ID
-        getCompanyUserName(new MyCallback() {
-            @Override
-            public void onCallback(String value) {
-                userID_Company = value;
-                highlightedTheDate(userID_Company);
-            }
+        getCompanyUserName(value -> {
+            userID_Company = value;
+            highlightedTheDate(userID_Company);
         });
 
         calenderViewID.setOnDateClickListener(new OnDateClickListener() {

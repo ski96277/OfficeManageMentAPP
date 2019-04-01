@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                     loginPassword.setError("password ?");
                     return;
                 }
+                //show login progress bar
                 loginProgress.setVisibility(View.VISIBLE);
                 if (CheckNetwork.isInternetAvailable(this)) {
                     firebaseAuth.signInWithEmailAndPassword(email, password)
@@ -95,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                 break;
             case R.id.Go_signupTV:
                 startActivity(new Intent(this, SignUPActivity.class));
+                finish();
                 break;
         }
     }
@@ -110,22 +112,15 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.child("Company").hasChild(userID)) {
-
                         loginProgress.setVisibility(View.GONE);
                         startActivity(new Intent(LoginActivity.this, MainActivity_Admin.class));
                         finish();
                     }
                     if (dataSnapshot.child("Employee_List").hasChild(userID)) {
-
+                        Toasty.success(LoginActivity.this, "Success", Toasty.LENGTH_SHORT).show();
                         loginProgress.setVisibility(View.GONE);
                         startActivity(new Intent(LoginActivity.this, MainActivity_Employee.class));
                         finish();
-                        Toasty.success(LoginActivity.this,"Success",Toasty.LENGTH_SHORT).show();
-                    }
-                    if (dataSnapshot.child("Receptionist").hasChild(userID)){
-                        Toasty.success(LoginActivity.this,"Please Login other app",Toast.LENGTH_SHORT).show();
-                        FirebaseAuth.getInstance().signOut();
-
                     }
                 }
 

@@ -30,7 +30,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class MainActivity_Admin extends AppCompatActivity{
+public class MainActivity_Admin extends AppCompatActivity {
     private Fragment fragment = null;
 
     @Override
@@ -146,7 +146,7 @@ public class MainActivity_Admin extends AppCompatActivity{
     protected void onStart() {
         super.onStart();
         if (FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()) {
-
+//nothing do
 
         } else {
             String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
@@ -177,4 +177,6 @@ public class MainActivity_Admin extends AppCompatActivity{
 
         }
     }
+
+
 }

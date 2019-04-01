@@ -42,9 +42,9 @@ public class ScanResultActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
 
     String title = null;
-    String scanresult = null;
-    String am_pm_St = null;
-    String time = null;
+    String scanresult = "";
+    /*String am_pm_St = null;
+    String time = null;*/
 
 
     @Override
@@ -84,16 +84,17 @@ public class ScanResultActivity extends AppCompatActivity {
                 startActivity(new Intent(this, MainActivity_Employee.class));
                 finish();
             } else {
-                scanresult = result.getContents();
-
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
                 databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        scanresult = result.getContents();
                         String value = null;
                         value = dataSnapshot.child("QRCode").child("number").getValue().toString();
-                        if (!scanresult.equals(value)) {
-//                            Toasty.error(ScanResultActivity.this, "QR code is not Right", Toasty.LENGTH_LONG).show();
+                        if (scanresult.equals(value)) {
+                            scanresult=value;
+                        }else {
+                            Toast.makeText(ScanResultActivity.this, "QR code is invalid", Toast.LENGTH_LONG).show();
                             startActivity(new Intent(ScanResultActivity.this, MainActivity_Employee.class));
                             finish();
                         }
@@ -129,10 +130,11 @@ public class ScanResultActivity extends AppCompatActivity {
 
                     DateFormat df = new SimpleDateFormat("h:mm a");
                     String time = df.format(Calendar.getInstance().getTime());
-                    Toast.makeText(this, "Entry Time :"+time, Toast.LENGTH_SHORT).show();
                     databaseReference.child("Attendance").child(getUserID())
                             .child(String.valueOf(year)).child(String.valueOf(month + 1))
                             .child(String.valueOf(day)).child("Entry").child("entryTime").setValue(time);
+                    Toasty.success(this, "submitted", Toast.LENGTH_SHORT).show();
+                   scanresult="";
                     startActivity(new Intent(this, MainActivity_Employee.class));
                     finish();
 
@@ -145,7 +147,7 @@ public class ScanResultActivity extends AppCompatActivity {
 
                     DateFormat dfa = new SimpleDateFormat("h:mm a");
                     String time = dfa.format(Calendar.getInstance().getTime());
-                    Toast.makeText(this, "Exit Time :"+time, Toast.LENGTH_SHORT).show();
+                    Toasty.success(this, "submitted", Toast.LENGTH_SHORT).show();
 
                     databaseReference.child("Attendance").child(getUserID())
                             .child(String.valueOf(year)).child(String.valueOf(month + 1))
