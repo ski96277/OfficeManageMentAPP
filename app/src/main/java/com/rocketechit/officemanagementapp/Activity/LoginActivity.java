@@ -130,4 +130,10 @@ public class LoginActivity extends AppCompatActivity {
             });
         }
     }
+
+    @OnClick(R.id.forget_password_TV)
+    public void onClick() {
+        startActivity(new Intent(LoginActivity.this, ChangePasswordActivity.class));
+        finish();
+    }
 }
