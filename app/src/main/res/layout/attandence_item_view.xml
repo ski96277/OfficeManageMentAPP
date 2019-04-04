@@ -1,49 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
 
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical">
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:divider="@android:color/transparent"
+    android:dividerHeight="0.0px"
+    android:elevation="5dp"
+    card_view:cardElevation="10dp"
+    card_view:cardPreventCornerOverlap="false">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="3dp">
 
         <TextView
             android:id="@+id/date_attendance_TV"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginEnd="112dp"
+            android:layout_marginRight="112dp"
+
             android:gravity="center"
             android:text="12"
             android:textColor="#EC1313"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/entryTime_attendance_TV"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="0dp" />
 
         <TextView
             android:id="@+id/entryTime_attendance_TV"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="65dp"
-            android:layout_marginRight="0dp"
-            android:layout_weight="1.2"
+            android:layout_marginEnd="92dp"
+            android:layout_marginRight="92dp"
             android:gravity="center"
             android:text="10.00am"
             android:textColor="#EC1313"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/exitTime_attendance_TV"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="0dp" />
 
         <TextView
             android:id="@+id/exitTime_attendance_TV"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="55dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:gravity="center"
             android:text="6.00am"
             android:textColor="#EC1313"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="0dp" />
 
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView >
+</LinearLayout>

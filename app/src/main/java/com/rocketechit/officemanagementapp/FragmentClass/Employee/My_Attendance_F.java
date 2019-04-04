@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -76,6 +77,8 @@ public class My_Attendance_F extends Fragment {
         databaseReference2 = firebaseDatabase.getReference();
         databaseReference3 = firebaseDatabase.getReference();
 
+
+//get attendance value when load the fragment
         getAttendenceValue(spinner_month.getSelectedItem().toString()
                 , spinner_year.getSelectedItem().toString(), new GetAttendanceList() {
                     @Override
@@ -85,6 +88,7 @@ public class My_Attendance_F extends Fragment {
 
                     }
                 });
+
         //set on selected item in spinner month
         spinner_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

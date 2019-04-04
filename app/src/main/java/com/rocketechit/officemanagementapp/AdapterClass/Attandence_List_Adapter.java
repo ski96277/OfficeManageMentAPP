@@ -47,9 +47,23 @@ public class Attandence_List_Adapter extends RecyclerView.Adapter<Attandence_Lis
     public void onBindViewHolder(@NonNull ViewClass viewClass, int i) {
 
 //        viewClass.nameTV.setText(employee_informations.get(i).getName_Employee());
+        String entry_time = entry_Time.get(i);
+        String exit_time = exit_Time.get(i);
+        //set Date , Here key list is the day
         viewClass.date_attendance_TV.setText(keyList.get(i));
-        viewClass.entryTime_attendance_TV.setText(entry_Time.get(i));
-        viewClass.exitTime_attendance_TV.setText(exit_Time.get(i));
+        if (entry_time == null) {
+            viewClass.entryTime_attendance_TV.setText("null");
+        } else {
+            viewClass.entryTime_attendance_TV.setText(entry_Time.get(i));
+
+        }
+        if (exit_time == null) {
+            viewClass.exitTime_attendance_TV.setText("null");
+
+        } else {
+            viewClass.exitTime_attendance_TV.setText(exit_Time.get(i));
+
+        }
 
     }
 
