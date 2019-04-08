@@ -50,6 +50,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_background"
                 android:padding="5dp"
+                android:maxLines="1"
+                android:inputType="text"
                 android:text="......................."
                 android:textColor="#000"
                 android:textSize="22sp" />
@@ -80,6 +82,8 @@
                 android:padding="5dp"
                     android:text="016 XX XX XXXX"
                 android:textColor="#000"
+                android:maxLines="1"
+                android:inputType="number"
                 android:textSize="22sp" />
         </LinearLayout>
 
@@ -106,6 +110,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_background"
                 android:padding="5dp"
+                android:maxLines="1"
+                android:inputType="textEmailAddress"
                 android:text="....................."
                 android:textColor="#000"
 
@@ -136,6 +142,7 @@
                 android:background="#DBDBDB"
                 android:padding="5dp"
                 android:text="||-||-||"
+                android:focusable="false"
                 android:textColor="#000"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -154,7 +161,7 @@
             android:layout_margin="15dp"
             android:background="#DBDBDB"
             android:padding="8dp"
-            android:text="Save Profile"
+            android:text="Update Profile"
             android:textAllCaps="false"
             android:textSize="18sp" />
 

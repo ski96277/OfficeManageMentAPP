@@ -1,6 +1,7 @@
 package com.rocketechit.officemanagementapp.FragmentClass.Employee;
 
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -96,6 +98,7 @@ public class Edit_employee_profile extends Fragment {
         employeeProfileviewEmailET.setText(email);
         employeeProfileviewJoinDateTV.setText(join_date);
     }
+
     @OnClick({R.id.employee_profileview_image, R.id.employee_profileview_Save_button})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -107,9 +110,9 @@ public class Edit_employee_profile extends Fragment {
                 break;
 
             case R.id.employee_profileview_join_Date_TV:
-                Toast.makeText(getContext(), "select Date", Toast.LENGTH_SHORT).show();
-
-                selectDate();
+                Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show();
+                CallDatePicker();
+//                selectDate();
                 break;
 
             case R.id.employee_profileview_Save_button:
@@ -131,6 +134,30 @@ public class Edit_employee_profile extends Fragment {
 
                 break;
         }
+    }
+
+    //    Showing Date picker popup
+    private void CallDatePicker() {
+
+        final Calendar myCalendar = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+            }
+
+        };
+        int day = myCalendar.get(Calendar.DAY_OF_MONTH);
+        int month = myCalendar.get(Calendar.MONTH);
+        int year = myCalendar.get(Calendar.YEAR);
+        Toast.makeText(getContext(), "" + date, Toast.LENGTH_SHORT).show();
+        employeeProfileviewJoinDateTV.setText(String.valueOf(day + "-" + month + "-" + year));
     }
 
     private void profileImageUpload(Uri uri) {
@@ -159,7 +186,7 @@ public class Edit_employee_profile extends Fragment {
         });
     }
 
-    private void selectDate() {
+  /*  private void selectDate() {
         Toast.makeText(getContext(), "select Date", Toast.LENGTH_SHORT).show();
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
@@ -167,7 +194,7 @@ public class Edit_employee_profile extends Fragment {
         int day = c.get(Calendar.DAY_OF_MONTH);
         employeeProfileviewJoinDateTV.setText(String.valueOf(day) + "-" + String.valueOf(month) + "-" + String.valueOf(year));
 
-    }
+    }*/
 
     private void upload_Updated_Data(String designation, String email, String imagelink, String join_date, String name_employee, String password_employee, String phoneNumber, String userID, String userID_company) {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();

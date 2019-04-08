@@ -122,7 +122,6 @@ public class My_Attendance_F extends Fragment {
                                 callAdapter(date, entry_Time, exit_Time);
                             }
                         });
-
             }
 
             @Override
