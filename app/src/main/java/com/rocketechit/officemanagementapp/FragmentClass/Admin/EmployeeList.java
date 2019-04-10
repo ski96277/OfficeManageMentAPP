@@ -60,7 +60,9 @@ public class EmployeeList extends Fragment {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
-        getRecyclerView_Data();
+        //getRecyclerView_Data();
+
+
 /*//get Current Admin User ID
         userID = getUserID();
 //get Employee Information as a list

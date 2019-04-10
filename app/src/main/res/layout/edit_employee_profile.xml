@@ -10,7 +10,6 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/employee_profileview_image"
             android:layout_width="155dp"
@@ -42,16 +41,16 @@
                 android:padding="5dp"
                 android:text="Name: "
                 android:textColor="#000"
-                android:textSize="25sp"/>
+                android:textSize="25sp" />
 
             <EditText
                 android:id="@+id/employee_profileview_name_ET"
                 android:layout_width="241dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_background"
-                android:padding="5dp"
-                android:maxLines="1"
                 android:inputType="text"
+                android:maxLines="1"
+                android:padding="5dp"
                 android:text="......................."
                 android:textColor="#000"
                 android:textSize="22sp" />
@@ -79,11 +78,11 @@
                 android:layout_width="241dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_background"
-                android:padding="5dp"
-                    android:text="016 XX XX XXXX"
-                android:textColor="#000"
-                android:maxLines="1"
                 android:inputType="number"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:text="016 XX XX XXXX"
+                android:textColor="#000"
                 android:textSize="22sp" />
         </LinearLayout>
 
@@ -109,9 +108,9 @@
                 android:layout_width="241dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_background"
-                android:padding="5dp"
-                android:maxLines="1"
                 android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:padding="5dp"
                 android:text="....................."
                 android:textColor="#000"
 
@@ -140,9 +139,9 @@
                 android:layout_width="241dp"
                 android:layout_height="wrap_content"
                 android:background="#DBDBDB"
+                android:focusable="false"
                 android:padding="5dp"
                 android:text="||-||-||"
-                android:focusable="false"
                 android:textColor="#000"
                 android:textSize="20sp" />
         </LinearLayout>

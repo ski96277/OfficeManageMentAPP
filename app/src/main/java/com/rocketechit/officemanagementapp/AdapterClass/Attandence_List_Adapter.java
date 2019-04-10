@@ -37,8 +37,9 @@ public class Attandence_List_Adapter extends RecyclerView.Adapter<Attandence_Lis
     @NonNull
     @Override
     public ViewClass onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.attandence_item_view, null);
+        LayoutInflater layoutInflater =LayoutInflater.from(context);
+
+        View view = layoutInflater.inflate(R.layout.attandence_item_view, viewGroup,false);
 
         return new ViewClass(view);
     }
@@ -46,7 +47,6 @@ public class Attandence_List_Adapter extends RecyclerView.Adapter<Attandence_Lis
     @Override
     public void onBindViewHolder(@NonNull ViewClass viewClass, int i) {
 
-//        viewClass.nameTV.setText(employee_informations.get(i).getName_Employee());
         String entry_time = entry_Time.get(i);
         String exit_time = exit_Time.get(i);
         //set Date , Here key list is the day

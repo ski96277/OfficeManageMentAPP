@@ -62,6 +62,7 @@ public class Employee_profile_view_by_admin extends Fragment {
     List<String> entry_Time;
     List<String> exit_Time;
 
+    Attandence_List_Adapter attandence_list_adapter;
 
     @Nullable
     @Override
@@ -91,40 +92,28 @@ public class Employee_profile_view_by_admin extends Fragment {
         String imageUrl = employee_information.getImageLink();
         String name = employee_information.getName_Employee();
         Log.e("TAG", "onViewCreated: " + imageUrl);
-        Log.e("TAG", "onViewCreated: " + name);
+        Log.e("TAG", "onViewCreated: Name - " + name);
         Picasso.get().load(imageUrl).error(R.drawable.man)
                 .placeholder(R.drawable.progress_animation).into(employeeProfileImageID);
         employeePositionTVID.setText(name);
 
         getAttendenceValue(spinner_month.getSelectedItem().toString()
-                , spinner_year.getSelectedItem().toString(), new GetAttendanceList() {
-                    @Override
-                    public void get_Date(List<String> date, List<String> entry_Time, List<String> exit_Time) {
-
-                        callAdapter(date, entry_Time, exit_Time);
-
-                    }
-                });
+                , spinner_year.getSelectedItem().toString(),
+                (date, entry_Time, exit_Time) -> callAdapter(date, entry_Time, exit_Time));
 
         //set on selected item in spinner month
         spinner_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //call get attendance value
                 getAttendenceValue(spinner_month.getSelectedItem().toString()
-                        , spinner_year.getSelectedItem().toString(), new GetAttendanceList() {
-                            @Override
-                            public void get_Date(List<String> date, List<String> entry_Time, List<String> exit_Time) {
-
-
-                                callAdapter(date, entry_Time, exit_Time);
-                            }
-                        });
+                        , spinner_year.getSelectedItem().toString(), (date, entry_Time, exit_Time) ->
+                                callAdapter(date, entry_Time, exit_Time));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 Toasty.info(getContext(), "No Selected", Toast.LENGTH_SHORT, true).show();
-
             }
         });
         //set on selected item in spinner year
@@ -132,13 +121,7 @@ public class Employee_profile_view_by_admin extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 getAttendenceValue(spinner_month.getSelectedItem().toString(),
-                        spinner_year.getSelectedItem().toString(), new GetAttendanceList() {
-                            @Override
-                            public void get_Date(List<String> date, List<String> entry_Time, List<String> exit_Time) {
-
-                                callAdapter(date, entry_Time, exit_Time);
-                            }
-                        });
+                        spinner_year.getSelectedItem().toString(), (date, entry_Time, exit_Time) -> callAdapter(date, entry_Time, exit_Time));
 
             }
 
@@ -154,9 +137,11 @@ public class Employee_profile_view_by_admin extends Fragment {
 
     }
 
+    //call the recyclerview data
     private void callAdapter(List<String> date, List<String> entry_time, List<String> exit_time) {
-        Attandence_List_Adapter attandence_list_adapter = new Attandence_List_Adapter(getContext(), date,
-                entry_time, exit_time);
+
+        attandence_list_adapter = new Attandence_List_Adapter(getContext(),
+                date, entry_time, exit_time);
         attendanceTableID.setAdapter(attandence_list_adapter);
         attandence_list_adapter.setOnItemClickListener(new Attandence_List_Adapter.ClickListener() {
             @Override
@@ -173,7 +158,7 @@ public class Employee_profile_view_by_admin extends Fragment {
 
     private void getAttendenceValue(String month, String year, GetAttendanceList getAttendanceList) {
         String userID_Employee = employee_information.getUserID_Employee();
-
+        int monthNumber;
         int i = 0;
         if (month.equals("January")) {
             i = 1;
@@ -212,7 +197,7 @@ public class Employee_profile_view_by_admin extends Fragment {
             i = 12;
         }
 
-        int monthNumber = i;
+        monthNumber = i;
         databaseReference.addValueEventListener(new ValueEventListener() {
 
             @Override
