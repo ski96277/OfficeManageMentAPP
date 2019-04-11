@@ -242,14 +242,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginBottom="4dp"
-            android:background="#000000"
+            android:background="@drawable/round_background"
+            android:textSize="25sp"
             android:gravity="center"
             android:letterSpacing="0.2"
             android:onClick="sign_up_btn"
             android:padding="1dp"
             android:text="Signup"
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/edit_text_size"
             android:textStyle="bold" />
 
         <TextView

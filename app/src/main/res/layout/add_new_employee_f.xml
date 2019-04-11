@@ -101,7 +101,8 @@
             android:id="@+id/add_employee_button_ID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_background"
+            android:background="@drawable/round_background"
+            android:textSize="30sp"
             android:backgroundTint="@color/black_color"
             android:paddingLeft="30dp"
             android:paddingTop="15dp"
@@ -109,8 +110,7 @@
             android:paddingBottom="15dp"
             android:text="Add Employee"
             android:textAllCaps="false"
-            android:textColor="#FFF"
-            android:textSize="@dimen/button_text_size" />
+            android:textColor="#FFF" />
     </LinearLayout>
 
 </LinearLayout>
