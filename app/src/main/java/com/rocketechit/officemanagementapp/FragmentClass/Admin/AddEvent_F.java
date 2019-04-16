@@ -139,8 +139,6 @@ public class AddEvent_F extends Fragment {
                                 EventClass eventClass = new EventClass(title, description, datew, year, month, day);
                                 databaseReference.child("Event_List").child(userID).child(datew).setValue(eventClass);
                                 Toasty.success(getContext(), "Event Added!", Toast.LENGTH_SHORT, true).show();
-
-
                             }).setNegativeButton("Cancel", (dialog, which) -> alertDialogBuilder.setCancelable(true)).show();
                 }
             }

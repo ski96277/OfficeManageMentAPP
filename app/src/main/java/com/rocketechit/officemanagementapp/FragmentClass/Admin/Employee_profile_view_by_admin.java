@@ -56,11 +56,13 @@ public class Employee_profile_view_by_admin extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     DatabaseReference databaseReference2;
-    DatabaseReference databaseReference3;
 
-    List<String> keyList;
+    List<String> date_List;
     List<String> entry_Time;
     List<String> exit_Time;
+
+    String TAG = "Employee_profile_view_by_admin";
+
 
     Attandence_List_Adapter attandence_list_adapter;
 
@@ -77,86 +79,60 @@ public class Employee_profile_view_by_admin extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
 
-        keyList = new ArrayList<>();
+        date_List = new ArrayList<>();
         entry_Time = new ArrayList<>();
         exit_Time = new ArrayList<>();
-
+/*
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
-        databaseReference2 = firebaseDatabase.getReference();
-        databaseReference3 = firebaseDatabase.getReference();
+        databaseReference2 = firebaseDatabase.getReference();*/
 
         Bundle bundle = getArguments();
         employee_information = (Employee_Information) bundle.getSerializable("employee_information");
 
         String imageUrl = employee_information.getImageLink();
         String name = employee_information.getName_Employee();
-        Log.e("TAG", "onViewCreated: " + imageUrl);
-        Log.e("TAG", "onViewCreated: Name - " + name);
         Picasso.get().load(imageUrl).error(R.drawable.man)
                 .placeholder(R.drawable.progress_animation).into(employeeProfileImageID);
         employeePositionTVID.setText(name);
-
-        getAttendenceValue(spinner_month.getSelectedItem().toString()
-                , spinner_year.getSelectedItem().toString(),
-                (date, entry_Time, exit_Time) -> callAdapter(date, entry_Time, exit_Time));
-
-        //set on selected item in spinner month
-        spinner_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //call get attendance value
-                getAttendenceValue(spinner_month.getSelectedItem().toString()
-                        , spinner_year.getSelectedItem().toString(), (date, entry_Time, exit_Time) ->
-                                callAdapter(date, entry_Time, exit_Time));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Toasty.info(getContext(), "No Selected", Toast.LENGTH_SHORT, true).show();
-            }
-        });
-        //set on selected item in spinner year
-        spinner_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                getAttendenceValue(spinner_month.getSelectedItem().toString(),
-                        spinner_year.getSelectedItem().toString(), (date, entry_Time, exit_Time) -> callAdapter(date, entry_Time, exit_Time));
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Toasty.info(getContext(), "No Selected", Toast.LENGTH_SHORT, true).show();
-            }
-        });
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         attendanceTableID.setLayoutManager(linearLayoutManager);
 
-    }
-
-    //call the recyclerview data
-    private void callAdapter(List<String> date, List<String> entry_time, List<String> exit_time) {
-
-        attandence_list_adapter = new Attandence_List_Adapter(getContext(),
-                date, entry_time, exit_time);
-        attendanceTableID.setAdapter(attandence_list_adapter);
-        attandence_list_adapter.setOnItemClickListener(new Attandence_List_Adapter.ClickListener() {
+//set on selected item in spinner month
+        spinner_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(int position, View v) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                getAttendenceValue(spinner_month.getSelectedItem().toString()
+                        , spinner_year.getSelectedItem().toString());
             }
 
             @Override
-            public void onItemLongClick(int position, View v) {
+            public void onNothingSelected(AdapterView<?> parent) {
+                Toasty.info(getContext(), "No Selected", Toast.LENGTH_SHORT, true).show();
+            }
+        });
+//set on selected item in spinner month END
 
+        //set on selected item in spinner year
+        spinner_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                getAttendenceValue(spinner_month.getSelectedItem().toString(),
+                        spinner_year.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Toasty.info(getContext(), "No Selected", Toast.LENGTH_SHORT, true).show();
             }
         });
     }
 
-    private void getAttendenceValue(String month, String year, GetAttendanceList getAttendanceList) {
+    //get Attendence value from database
+    private void getAttendenceValue(String month, String year) {
         String userID_Employee = employee_information.getUserID_Employee();
         int monthNumber;
         int i = 0;
@@ -198,52 +174,79 @@ public class Employee_profile_view_by_admin extends Fragment {
         }
 
         monthNumber = i;
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        databaseReference2 = firebaseDatabase.getReference();
+//first data (date) start here
         databaseReference.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                keyList.clear();
+
 
                 for (DataSnapshot snapshot : dataSnapshot.child("Attendance")
                         .child(userID_Employee).child(year).child(String.valueOf(monthNumber)).getChildren()) {
 
-                    entry_Time.clear();
-                    exit_Time.clear();
-                    String key = snapshot.getKey();
-                    keyList.add(key);
+
+                    String date = snapshot.getKey();
+                    date_List.add(date);
+                    if (date_List.isEmpty()){
+                        attendanceTableID.setVisibility(View.GONE);
+                    }else {
+                        attendanceTableID.setVisibility(View.VISIBLE);
+                    }
+
                     databaseReference2.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                             String entryTime = dataSnapshot.child("Attendance").child(userID_Employee).child(year).child(String.valueOf(monthNumber))
-                                    .child(key).child("Entry").child("entryTime").getValue(String.class);
+                                    .child(date).child("Entry").child("entryTime").getValue(String.class);
                             String exitTime = dataSnapshot.child("Attendance").child(userID_Employee).child(year).child(String.valueOf(monthNumber))
-                                    .child(key).child("Exit").child("exitTime").getValue(String.class);
+                                    .child(date).child("Exit").child("exitTime").getValue(String.class);
                             entry_Time.add(entryTime);
                             exit_Time.add(exitTime);
 
-                            getAttendanceList.get_Date(keyList, entry_Time, exit_Time);
+                            attandence_list_adapter = new Attandence_List_Adapter(getContext(),
+                                    date_List, entry_Time, exit_Time);
+                                attendanceTableID.setAdapter(attandence_list_adapter);
 
+                            //recyclerView On Item Click
+                            attandence_list_adapter.setOnItemClickListener(new Attandence_List_Adapter.ClickListener() {
+                                @Override
+                                public void onItemClick(int position, View v) {
+
+                                }
+
+                                @Override
+                                public void onItemLongClick(int position, View v) {
+
+                                }
+                            });
+                            //recyclerView On Item Click END
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                            Toasty.error(getContext(), "Data Error", Toasty.LENGTH_SHORT).show();
                         }
-
                     });//second Data coming end
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Toasty.error(getContext(), "date not Found", Toasty.LENGTH_SHORT).show();
             }
-        });//first Data
+        });
+//first data (date) END
+
     }
+//get Attendence value from database   END
 
     // the create options menu with a MenuInflater to have the menu from your fragment
-    @Override
+
+    //add new menu Action in Fragment @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.findItem(R.id.employee_information).setVisible(true);
         super.onCreateOptionsMenu(menu, inflater);
@@ -273,10 +276,6 @@ public class Employee_profile_view_by_admin extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    public interface GetAttendanceList {
-        public void get_Date(List<String> date, List<String> entry_Time, List<String> exit_Time);
-
-    }
+    //add new menu Action in End
 
 }

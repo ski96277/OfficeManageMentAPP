@@ -14,32 +14,32 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class Attandence_List_Adapter extends RecyclerView.Adapter<Attandence_List_Adapter.ViewClass> {
     Context context;
 
-    List<String> keyList;
+    List<String> date_List;
     List<String> entry_Time;
-    List<String> exit_Time;
+    List<String> exit_Time ;
 
     //for onClick from java class (Second ....)
     private static ClickListener clickListener;
 
-    public Attandence_List_Adapter(Context context, List<String> keyList, List<String> entry_Time, List<String> exit_Time) {
+    public Attandence_List_Adapter(Context context, List<String> date_List, List<String> entry_Time, List<String> exit_Time) {
         this.context = context;
-        this.keyList = keyList;
+
+        this.date_List = date_List;
         this.entry_Time = entry_Time;
         this.exit_Time = exit_Time;
     }
 
+
     @NonNull
     @Override
     public ViewClass onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        LayoutInflater layoutInflater =LayoutInflater.from(context);
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
 
-        View view = layoutInflater.inflate(R.layout.attandence_item_view, viewGroup,false);
+        View view = layoutInflater.inflate(R.layout.attandence_item_view, viewGroup, false);
 
         return new ViewClass(view);
     }
@@ -50,7 +50,7 @@ public class Attandence_List_Adapter extends RecyclerView.Adapter<Attandence_Lis
         String entry_time = entry_Time.get(i);
         String exit_time = exit_Time.get(i);
         //set Date , Here key list is the day
-        viewClass.date_attendance_TV.setText(keyList.get(i));
+        viewClass.date_attendance_TV.setText(date_List.get(i));
         if (entry_time == null) {
             viewClass.entryTime_attendance_TV.setText("null");
         } else {
@@ -69,7 +69,7 @@ public class Attandence_List_Adapter extends RecyclerView.Adapter<Attandence_Lis
 
     @Override
     public int getItemCount() {
-        return keyList.size();
+        return date_List.size();
     }
 
     //implement interface for onClick from java class (third ....)

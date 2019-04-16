@@ -29,7 +29,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="91dp"
-        android:background="#979797"
+        android:background="#97B6B3B3"
         android:gravity="center"
         android:maxLines="1"
         android:padding="10dp"

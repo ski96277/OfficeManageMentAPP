@@ -163,7 +163,6 @@ public class ScanResultActivity extends AppCompatActivity {
 
     //get Current Admin User ID
     private String getUserID() {
-
         FirebaseAuth firebaseAuth;
         FirebaseUser firebaseUser;
         firebaseAuth = FirebaseAuth.getInstance();
