@@ -2,6 +2,7 @@ package com.rocketechit.officemanagementapp.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDialogFragment;
 import butterknife.ButterKnife;
 import es.dmoral.toasty.Toasty;
 
@@ -18,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.kinda.alert.KAlertDialog;
 import com.rocketechit.officemanagementapp.JavaClass.CheckNetwork;
 import com.rocketechit.officemanagementapp.R;
 
@@ -38,8 +40,17 @@ public class SplashActivity extends AppCompatActivity {
         if (CheckNetwork.isInternetAvailable(this)) {
             checkUserID();
         } else {
-            Toasty.error(this, "Check Internet", Toast.LENGTH_SHORT, true).show();
-
+            //If  Internet Connection Failed
+            KAlertDialog alertDialog = new KAlertDialog(this, KAlertDialog.ERROR_TYPE);
+            alertDialog.setTitleText("Oops...");
+            alertDialog.setContentText("Check Internet Connection");
+            alertDialog.setCancelable(false);
+           alertDialog.setConfirmClickListener(kAlertDialog -> {
+               alertDialog.dismissWithAnimation();
+               startActivity(new Intent(SplashActivity.this,SplashActivity.class));
+               finish();
+           });
+            alertDialog.show();
         }
     }
 

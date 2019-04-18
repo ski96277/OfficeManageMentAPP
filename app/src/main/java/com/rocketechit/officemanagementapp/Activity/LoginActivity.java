@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                                         checkUserID();
                                     } else {
                                         Toasty.error(this, "Internet Error", Toast.LENGTH_SHORT, true).show();
-
+                                        loginProgress.setVisibility(View.GONE);
                                     }
                                 } else {
                                     loginProgress.setVisibility(View.GONE);
@@ -91,6 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                             });
                 } else {
                     Toasty.error(this, "NetWork Error", Toast.LENGTH_SHORT, true).show();
+                    loginProgress.setVisibility(View.GONE);
 
                 }
                 break;

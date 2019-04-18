@@ -82,10 +82,7 @@ public class Employee_profile_view_by_admin extends Fragment {
         date_List = new ArrayList<>();
         entry_Time = new ArrayList<>();
         exit_Time = new ArrayList<>();
-/*
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
-        databaseReference2 = firebaseDatabase.getReference();*/
+
 
         Bundle bundle = getArguments();
         employee_information = (Employee_Information) bundle.getSerializable("employee_information");
@@ -103,9 +100,12 @@ public class Employee_profile_view_by_admin extends Fragment {
         spinner_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                date_List.clear();
+                entry_Time.clear();
+                exit_Time.clear();
                 getAttendenceValue(spinner_month.getSelectedItem().toString()
                         , spinner_year.getSelectedItem().toString());
+
             }
 
             @Override
@@ -119,9 +119,12 @@ public class Employee_profile_view_by_admin extends Fragment {
         spinner_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                date_List.clear();
+                entry_Time.clear();
+                exit_Time.clear();
                 getAttendenceValue(spinner_month.getSelectedItem().toString(),
                         spinner_year.getSelectedItem().toString());
+
             }
 
             @Override
@@ -182,19 +185,31 @@ public class Employee_profile_view_by_admin extends Fragment {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//check the user ID has in the attendance list
+                if (!dataSnapshot.child("Attendance").hasChild(userID_Employee)){
+                    attendanceTableID.setVisibility(View.GONE);
 
+                }
+//check the user  has attendance in this year
+                if (!dataSnapshot.child("Attendance").child(userID_Employee).hasChild(year)){
+                    attendanceTableID.setVisibility(View.GONE);
+                }
+//check the user  has attendance in this month
+                if (!dataSnapshot.child("Attendance").child(userID_Employee).child(year).hasChild(month)){
+                    attendanceTableID.setVisibility(View.GONE);
+
+                }
 
                 for (DataSnapshot snapshot : dataSnapshot.child("Attendance")
                         .child(userID_Employee).child(year).child(String.valueOf(monthNumber)).getChildren()) {
 
-
+                    attendanceTableID.setVisibility(View.VISIBLE);
                     String date = snapshot.getKey();
                     date_List.add(date);
-                    if (date_List.isEmpty()){
-                        attendanceTableID.setVisibility(View.GONE);
-                    }else {
-                        attendanceTableID.setVisibility(View.VISIBLE);
+                    if (date_List.size()<1){
+                        Toast.makeText(getContext(), "Hello", Toast.LENGTH_SHORT).show();
                     }
+
 
                     databaseReference2.addValueEventListener(new ValueEventListener() {
                         @Override
