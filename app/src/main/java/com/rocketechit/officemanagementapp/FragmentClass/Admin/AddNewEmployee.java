@@ -1,5 +1,6 @@
 package com.rocketechit.officemanagementapp.FragmentClass.Admin;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.kinda.alert.KAlertDialog;
 import com.rocketechit.officemanagementapp.JavaClass.CheckNetwork;
 import com.rocketechit.officemanagementapp.JavaClass.Employee_Information;
 import com.rocketechit.officemanagementapp.R;
@@ -55,6 +57,8 @@ public class AddNewEmployee extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
 
         initialize();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
@@ -110,6 +114,7 @@ public class AddNewEmployee extends Fragment {
                                     "Null", designation, "null");
                             //admin Login again
                             FirebaseAuth.getInstance().signOut();
+                            successAlert();
                             firebaseAuth.signInWithEmailAndPassword(email_Admin, password_Admin)
                                     .addOnCompleteListener(getActivity(), task1 -> {
                                         if (task.isSuccessful()) {
@@ -132,10 +137,27 @@ public class AddNewEmployee extends Fragment {
                                         }
                                     });
                         } else {
+                            progressbarEmployeeAdd.setVisibility(View.GONE);
                             Toasty.error(getContext(), "Failed.", Toast.LENGTH_SHORT, true).show();
                         }
                     });
         }
+    }
+//success alert show method
+    private void successAlert() {
+        KAlertDialog dialog = new KAlertDialog(getContext(), KAlertDialog.SUCCESS_TYPE);
+        dialog.setTitleText("Good job!");
+        dialog.setContentText("successfully added.");
+        dialog.setConfirmClickListener(new KAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(KAlertDialog kAlertDialog) {
+                addEmployeeEmail.setText("");
+                addEmployeeDesignationUserET.setText("");
+                dialog.dismissWithAnimation();
+            }
+        });
+        dialog.setCancelable(false);
+        dialog.show();
     }
 
 }

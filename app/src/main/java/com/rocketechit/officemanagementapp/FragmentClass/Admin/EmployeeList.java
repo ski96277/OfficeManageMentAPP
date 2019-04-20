@@ -1,10 +1,12 @@
 package com.rocketechit.officemanagementapp.FragmentClass.Admin;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -14,6 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.kinda.alert.KAlertDialog;
 import com.rocketechit.officemanagementapp.AdapterClass.EmployeeList_Adapter;
 import com.rocketechit.officemanagementapp.JavaClass.CheckNetwork;
 import com.rocketechit.officemanagementapp.JavaClass.Employee_Information;
@@ -21,6 +24,8 @@ import com.rocketechit.officemanagementapp.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,7 +44,8 @@ public class EmployeeList extends Fragment {
     DatabaseReference databaseReference;
     String userID;
 
-    List<Employee_Information> employee_informations = new ArrayList<Employee_Information>();
+    List<Employee_Information> employee_informations ;
+    EmployeeList_Adapter adapterClass_recycler;
 
     @BindView(R.id.employee_list_Recycler_ID)
     RecyclerView employeeListRecyclerID;
@@ -51,77 +57,56 @@ public class EmployeeList extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.employee_list, null);
         ButterKnife.bind(this, view);
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        employee_informations = new ArrayList<>();
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        employeeListRecyclerID.setLayoutManager(gridLayoutManager);
+
+        getRecyclerView_Data();
         return view;
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)  {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
-        //getRecyclerView_Data();
-
-
-/*//get Current Admin User ID
-        userID = getUserID();
-//get Employee Information as a list
-        employee_informations = getUserData();
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-        employeeListRecyclerID.setLayoutManager(gridLayoutManager);
-        EmployeeList_Adapter adapterClass_recycler = new EmployeeList_Adapter(getContext(), employee_informations);
-
-        employeeListRecyclerID.setAdapter(adapterClass_recycler);
-
-        adapterClass_recycler.setOnItemClickListener(new EmployeeList_Adapter.ClickListener() {
-            @Override
-            public void onItemClick(int position, View v) {
-
-                Employee_Information employee_information = new Employee_Information(
-                        employee_informations.get(position).getUserID_Employee(),
-                        employee_informations.get(position).getUserID_company(),
-                        employee_informations.get(position).getEmail_Employee(),
-                        employee_informations.get(position).getPassword_Employee(),
-                        employee_informations.get(position).getName_Employee(),
-                        employee_informations.get(position).getJoin_Date(),
-                        employee_informations.get(position).getImageLink(),
-                        employee_informations.get(position).getDesignation(),
-                        employee_informations.get(position).getPhone()
-                );
-
-                Fragment fragment = new Employee_profile_view_by_admin();
-                Bundle bundle = new Bundle();
-
-                if (fragment != null) {
-                    bundle.putSerializable("employee_information", employee_information);
-                    fragment.setArguments(bundle);
-
-                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.screen_Area_For_Admin, fragment);
-                    fragmentTransaction.addToBackStack("");
-                    fragmentTransaction.commit();
-                }
-            }
-
-            @Override
-            public void onItemLongClick(int position, View v) {
-
-            }
-        });*/
     }
-//show Data in Recycler View
+    //Call the Data For recycler View in Resume Method
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (CheckNetwork.isInternetAvailable(getContext())) {
+            getRecyclerView_Data();
+            Log.e("TAG", "onResume: " + "on_resume_Employee_list");
+        } else {
+            Toasty.info(getContext(), "Internet error ", Toasty.LENGTH_SHORT).show();
+        }
+       /* if (employee_informations.isEmpty()){
+            new Timer().scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    //your method
+                    getRecyclerView_Data();
+                }
+            }, 0, 1000);//put here time 1000 milliseconds=1 second
+        }*/
+    }
+
+    //show Data in Recycler View
     private void getRecyclerView_Data() {
 
 //get Current Admin User ID
         userID = getUserID();
 //get Employee Information as a list
         employee_informations = getUserData();
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-        employeeListRecyclerID.setLayoutManager(gridLayoutManager);
-        EmployeeList_Adapter adapterClass_recycler = new EmployeeList_Adapter(getContext(), employee_informations);
+
+         adapterClass_recycler = new EmployeeList_Adapter(getContext(), employee_informations);
 
         employeeListRecyclerID.setAdapter(adapterClass_recycler);
 
+        // On Click in recyclerView ID
         adapterClass_recycler.setOnItemClickListener(new EmployeeList_Adapter.ClickListener() {
             @Override
             public void onItemClick(int position, View v) {
@@ -161,16 +146,7 @@ public class EmployeeList extends Fragment {
 
     //call on resume
 
-//Call the Data For recycler View in Resume Method
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (CheckNetwork.isInternetAvailable(getContext())){
-            getRecyclerView_Data();
-        }else {
-            Toasty.info(getContext(),"Internet error ",Toasty.LENGTH_SHORT).show();
-        }
-    }
+
 
     //get Employee Information as a list
     private List<Employee_Information> getUserData() {
@@ -181,8 +157,8 @@ public class EmployeeList extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.child("Company_Employee").child(userID).getChildren()) {
 
                     Employee_Information employee_information = snapshot.getValue(Employee_Information.class);
-
                     employee_informations.add(employee_information);
+                    Log.e("TAG", "onDataChange:-- "+employee_informations.size());
                 }
             }
 
@@ -191,7 +167,7 @@ public class EmployeeList extends Fragment {
 
             }
         });
-
+        Toast.makeText(getContext(), ""+employee_informations.size(), Toast.LENGTH_SHORT).show();
         return employee_informations;
     }
 

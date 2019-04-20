@@ -79,10 +79,18 @@ public class Employee_profile_view_by_admin extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
 
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         date_List = new ArrayList<>();
         entry_Time = new ArrayList<>();
         exit_Time = new ArrayList<>();
-
+        date_List.clear();
+        entry_Time.clear();
+        exit_Time.clear();
 
         Bundle bundle = getArguments();
         employee_information = (Employee_Information) bundle.getSerializable("employee_information");
@@ -95,7 +103,6 @@ public class Employee_profile_view_by_admin extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         attendanceTableID.setLayoutManager(linearLayoutManager);
-
 //set on selected item in spinner month
         spinner_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -210,8 +217,8 @@ public class Employee_profile_view_by_admin extends Fragment {
                         Toast.makeText(getContext(), "Hello", Toast.LENGTH_SHORT).show();
                     }
 
-
                     databaseReference2.addValueEventListener(new ValueEventListener() {
+
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -225,6 +232,7 @@ public class Employee_profile_view_by_admin extends Fragment {
                             attandence_list_adapter = new Attandence_List_Adapter(getContext(),
                                     date_List, entry_Time, exit_Time);
                                 attendanceTableID.setAdapter(attandence_list_adapter);
+
 
                             //recyclerView On Item Click
                             attandence_list_adapter.setOnItemClickListener(new Attandence_List_Adapter.ClickListener() {
