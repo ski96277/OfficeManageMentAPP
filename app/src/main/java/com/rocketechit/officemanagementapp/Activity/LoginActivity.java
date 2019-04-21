@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                 break;
             case R.id.Go_signupTV:
                 startActivity(new Intent(this, SignUPActivity.class));
-                finish();
+
                 break;
         }
     }

@@ -77,6 +77,8 @@ public class Edit_employee_profile extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getActivity().setTitle("Edit Profile");
+
         Bundle bundle = getArguments();
         Employee_Information employee_information = (Employee_Information) bundle.getSerializable("employee_information");
 

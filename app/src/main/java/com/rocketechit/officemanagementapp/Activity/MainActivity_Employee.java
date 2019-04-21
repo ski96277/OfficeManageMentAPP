@@ -38,7 +38,6 @@ public class MainActivity_Employee extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main__employee);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Home Page");
         setSupportActionBar(toolbar);
 //Navigation off
       /*  DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

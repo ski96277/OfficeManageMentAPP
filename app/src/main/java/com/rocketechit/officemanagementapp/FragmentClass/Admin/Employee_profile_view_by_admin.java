@@ -79,7 +79,7 @@ public class Employee_profile_view_by_admin extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
 
-
+        getActivity().setTitle("Attendance Information");
     }
 
     @Override
@@ -126,9 +126,7 @@ public class Employee_profile_view_by_admin extends Fragment {
         spinner_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                date_List.clear();
-                entry_Time.clear();
-                exit_Time.clear();
+
                 getAttendenceValue(spinner_month.getSelectedItem().toString(),
                         spinner_year.getSelectedItem().toString());
 
@@ -193,27 +191,28 @@ public class Employee_profile_view_by_admin extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 //check the user ID has in the attendance list
-                if (!dataSnapshot.child("Attendance").hasChild(userID_Employee)){
+                if (!dataSnapshot.child("Attendance").hasChild(userID_Employee)) {
                     attendanceTableID.setVisibility(View.GONE);
 
                 }
 //check the user  has attendance in this year
-                if (!dataSnapshot.child("Attendance").child(userID_Employee).hasChild(year)){
+                if (!dataSnapshot.child("Attendance").child(userID_Employee).hasChild(year)) {
                     attendanceTableID.setVisibility(View.GONE);
                 }
 //check the user  has attendance in this month
-                if (!dataSnapshot.child("Attendance").child(userID_Employee).child(year).hasChild(month)){
+                if (!dataSnapshot.child("Attendance").child(userID_Employee).child(year).hasChild(month)) {
                     attendanceTableID.setVisibility(View.GONE);
 
                 }
-
+                //clear the date_list for reduce the data replete
+                date_List.clear();
                 for (DataSnapshot snapshot : dataSnapshot.child("Attendance")
                         .child(userID_Employee).child(year).child(String.valueOf(monthNumber)).getChildren()) {
 
                     attendanceTableID.setVisibility(View.VISIBLE);
                     String date = snapshot.getKey();
                     date_List.add(date);
-                    if (date_List.size()<1){
+                    if (date_List.size() < 1) {
                         Toast.makeText(getContext(), "Hello", Toast.LENGTH_SHORT).show();
                     }
 
@@ -231,7 +230,7 @@ public class Employee_profile_view_by_admin extends Fragment {
 
                             attandence_list_adapter = new Attandence_List_Adapter(getContext(),
                                     date_List, entry_Time, exit_Time);
-                                attendanceTableID.setAdapter(attandence_list_adapter);
+                            attendanceTableID.setAdapter(attandence_list_adapter);
 
 
                             //recyclerView On Item Click
@@ -265,6 +264,7 @@ public class Employee_profile_view_by_admin extends Fragment {
 //first data (date) END
 
     }
+
 //get Attendence value from database   END
 
     // the create options menu with a MenuInflater to have the menu from your fragment

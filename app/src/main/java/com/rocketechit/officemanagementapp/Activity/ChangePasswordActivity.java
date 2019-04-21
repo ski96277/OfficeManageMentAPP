@@ -32,6 +32,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
         ButterKnife.bind(this);
+        getSupportActionBar().setTitle("Change Password");
+
     }
 
     @OnClick(R.id.reset_btn)

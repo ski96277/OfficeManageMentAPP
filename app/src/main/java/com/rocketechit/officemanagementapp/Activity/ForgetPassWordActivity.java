@@ -27,6 +27,9 @@ public class ForgetPassWordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_pass_word);
         ButterKnife.bind(this);
+
+
+        getSupportActionBar().setTitle("Reset Password");
     }
 
     @OnClick(R.id.forget_Password_btn)

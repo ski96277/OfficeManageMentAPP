@@ -49,6 +49,7 @@ public class AddEvent_F extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.add_event_f, null);
         ButterKnife.bind(this, view);
+        getActivity().setTitle("Add Event");
         return view;
     }
 

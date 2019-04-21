@@ -42,8 +42,7 @@ public class My_Attendance_F extends Fragment {
     @BindView(R.id.my_attendanceTable_ID)
     RecyclerView attendanceTableID_My;
 
-
-    List<String> keyList;
+    List<String> date_List;
     List<String> entry_Time;
     List<String> exit_Time;
 
@@ -54,6 +53,7 @@ public class My_Attendance_F extends Fragment {
 
 
     String userID;
+    Attandence_List_Adapter attandence_list_adapter;
 
     @Nullable
     @Override
@@ -67,8 +67,10 @@ public class My_Attendance_F extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         userID = getUserID();
+        getActivity().setTitle("My Attendance");
 
-        keyList = new ArrayList<>();
+        date_List = new ArrayList<>();
+      /*  keyList = new ArrayList<>();*/
         entry_Time = new ArrayList<>();
         exit_Time = new ArrayList<>();
 
@@ -79,7 +81,29 @@ public class My_Attendance_F extends Fragment {
 
 
 //get attendance value when load the fragment
-        getAttendenceValue(spinner_month.getSelectedItem().toString()
+        spinner_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getAttendenceValue(spinner_month.getSelectedItem().toString(), spinner_year.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spinner_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getAttendenceValue(spinner_month.getSelectedItem().toString(), spinner_year.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+/*        getAttendenceValue(spinner_month.getSelectedItem().toString()
                 , spinner_year.getSelectedItem().toString(), new GetAttendanceList() {
                     @Override
                     public void get_Date(List<String> date, List<String> entry_Time, List<String> exit_Time) {
@@ -87,10 +111,10 @@ public class My_Attendance_F extends Fragment {
                         callAdapter(date, entry_Time, exit_Time);
 
                     }
-                });
+                });*/
 
         //set on selected item in spinner month
-        spinner_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+       /* spinner_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 getAttendenceValue(spinner_month.getSelectedItem().toString()
@@ -109,9 +133,9 @@ public class My_Attendance_F extends Fragment {
                 Toasty.info(getContext(), "No Selected", Toast.LENGTH_SHORT, true).show();
 
             }
-        });
+        });*/
         //set on selected item in spinner year
-        spinner_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+      /*  spinner_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 getAttendenceValue(spinner_month.getSelectedItem().toString(),
@@ -128,19 +152,145 @@ public class My_Attendance_F extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
                 Toasty.info(getContext(), "No Selected", Toast.LENGTH_SHORT, true).show();
             }
-        });
-
+        });*/
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         attendanceTableID_My.setLayoutManager(linearLayoutManager);
-
-
     }
 
+
+    private void getAttendenceValue(String month, String year) {
+        String userID_Employee = getUserID();
+        int monthNumber;
+        int i = 0;
+        if (month.equals("January")) {
+            i = 1;
+        }
+        if (month.equals("February")) {
+            i = 2;
+        }
+        if (month.equals("March")) {
+            i = 3;
+        }
+        if (month.equals("April")) {
+            i = 4;
+        }
+        if (month.equals("May")) {
+            i = 5;
+        }
+        if (month.equals("June")) {
+            i = 6;
+        }
+        if (month.equals("July")) {
+            i = 7;
+        }
+        if (month.equals("August")) {
+            i = 8;
+        }
+        if (month.equals("September")) {
+            i = 9;
+        }
+        if (month.equals("October")) {
+            i = 10;
+        }
+        if (month.equals("November")) {
+            i = 11;
+        }
+        if (month.equals("December")) {
+            i = 12;
+        }
+
+        monthNumber = i;
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        databaseReference2 = firebaseDatabase.getReference();
+//first data (date) start here
+        databaseReference.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//check the user ID has in the attendance list
+                if (!dataSnapshot.child("Attendance").hasChild(userID_Employee)) {
+                    attendanceTableID_My.setVisibility(View.GONE);
+
+                }
+//check the user  has attendance in this year
+                if (!dataSnapshot.child("Attendance").child(userID_Employee).hasChild(year)) {
+                    attendanceTableID_My.setVisibility(View.GONE);
+                }
+//check the user  has attendance in this month
+                if (!dataSnapshot.child("Attendance").child(userID_Employee).child(year).hasChild(month)) {
+                    attendanceTableID_My.setVisibility(View.GONE);
+
+                }
+                //clear the date_list for reduce the data replete
+                date_List.clear();
+                for (DataSnapshot snapshot : dataSnapshot.child("Attendance")
+                        .child(userID_Employee).child(year).child(String.valueOf(monthNumber)).getChildren()) {
+
+                    attendanceTableID_My.setVisibility(View.VISIBLE);
+                    String date = snapshot.getKey();
+                    date_List.add(date);
+                    if (date_List.size() < 1) {
+                        Toast.makeText(getContext(), "Hello", Toast.LENGTH_SHORT).show();
+                    }
+
+                    databaseReference2.addValueEventListener(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            String entryTime = dataSnapshot.child("Attendance").child(userID_Employee).child(year).child(String.valueOf(monthNumber))
+                                    .child(date).child("Entry").child("entryTime").getValue(String.class);
+                            String exitTime = dataSnapshot.child("Attendance").child(userID_Employee).child(year).child(String.valueOf(monthNumber))
+                                    .child(date).child("Exit").child("exitTime").getValue(String.class);
+                            entry_Time.add(entryTime);
+                            exit_Time.add(exitTime);
+
+                            attandence_list_adapter = new Attandence_List_Adapter(getContext(),
+                                    date_List, entry_Time, exit_Time);
+                            attendanceTableID_My.setAdapter(attandence_list_adapter);
+
+
+                            //recyclerView On Item Click
+                            attandence_list_adapter.setOnItemClickListener(new Attandence_List_Adapter.ClickListener() {
+                                @Override
+                                public void onItemClick(int position, View v) {
+
+                                }
+
+                                @Override
+                                public void onItemLongClick(int position, View v) {
+
+                                }
+                            });
+                            //recyclerView On Item Click END
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Toasty.error(getContext(), "Data Error", Toasty.LENGTH_SHORT).show();
+                        }
+                    });//second Data coming end
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toasty.error(getContext(), "date not Found", Toasty.LENGTH_SHORT).show();
+            }
+        });
+//first data (date) END
+
+    }
+/*
     private void callAdapter(List<String> date, List<String> entry_time, List<String> exit_time) {
         Attandence_List_Adapter attandence_list_adapter = new Attandence_List_Adapter(getContext(), date,
                 entry_time, exit_time);
-        attendanceTableID_My.setAdapter(attandence_list_adapter);
+        if (attandence_list_adapter!=null){
+
+            attendanceTableID_My.setAdapter(attandence_list_adapter);
+        }
         attandence_list_adapter.setOnItemClickListener(new Attandence_List_Adapter.ClickListener() {
             @Override
             public void onItemClick(int position, View v) {
@@ -153,8 +303,9 @@ public class My_Attendance_F extends Fragment {
             }
         });
     }
+*/
 
-    public interface GetAttendanceList {
+  /*  public interface GetAttendanceList {
         public void get_Date(List<String> date, List<String> entry_Time, List<String> exit_Time);
 
     }
@@ -205,10 +356,28 @@ public class My_Attendance_F extends Fragment {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+//check the user ID has in the attendance list
+                Toast.makeText(getContext(), ""+userID_Employee, Toast.LENGTH_SHORT).show();
+                if (!dataSnapshot.child("Attendance").hasChild(userID_Employee)) {
+                    attendanceTableID_My.setVisibility(View.GONE);
+                }
+//check the user  has attendance in this year
+                if (!dataSnapshot.child("Attendance").child(userID_Employee).hasChild(year)) {
+                    attendanceTableID_My.setVisibility(View.GONE);
+                }
+//check the user  has attendance in this month
+                if (!dataSnapshot.child("Attendance").child(userID_Employee).child(year).hasChild(month)) {
+                    attendanceTableID_My.setVisibility(View.GONE);
+                }
+
                 keyList.clear();
 
                 for (DataSnapshot snapshot : dataSnapshot.child("Attendance")
-                        .child(userID_Employee).child(year).child(String.valueOf(monthNumber)).getChildren()) {
+                        .child(userID_Employee).child(year).child(String.valueOf(monthNumber))
+                        .getChildren()) {
+                    attendanceTableID_My.setVisibility(View.VISIBLE);
 
                     entry_Time.clear();
                     exit_Time.clear();
@@ -245,7 +414,7 @@ public class My_Attendance_F extends Fragment {
         });//first Data
     }
 
-
+*/
     //get Current Admin User ID
     private String getUserID() {
 

@@ -58,6 +58,7 @@ public class Employee_Profile_F extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getActivity().setTitle("My Profile");
 
 
         get_Employee_Information(new myCallBack() {

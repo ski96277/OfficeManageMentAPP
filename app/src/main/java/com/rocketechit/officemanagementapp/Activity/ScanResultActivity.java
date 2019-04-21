@@ -52,6 +52,8 @@ public class ScanResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_result);
         ButterKnife.bind(this);
+
+        getSupportActionBar().setTitle("Submit Time");
         getScannerOption();
 
         Intent intent = getIntent();
