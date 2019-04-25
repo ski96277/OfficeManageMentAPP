@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -120,6 +122,25 @@ public class EmployeeList extends Fragment {
 
                         @Override
                         public void onItemLongClick(int position, View v) {
+                            KAlertDialog alertDialog = new KAlertDialog(getContext(), KAlertDialog.WARNING_TYPE);
+                            alertDialog.setTitleText("Are you sure?")
+                                    .setContentText("Won't be able to recover this User!")
+                                    .setConfirmText("Yes,delete it!")
+                                    .setConfirmClickListener(kAlertDialog -> {
+
+                                        FirebaseDatabase.getInstance().getReference()
+                                                .child("Company_Employee").child(employee_informations.get(position)
+                                                .getUserID_company()).child(employee_informations.get(position).getUserID_Employee())
+                                                .removeValue();
+                                        FirebaseDatabase.getInstance().getReference()
+                                                .child("Employee_List")
+                                                .child(employee_informations.get(position).getUserID_Employee())
+                                                .removeValue();
+                                        alertDialog.dismiss();
+
+
+                                    })
+                                    .show();
 
                         }
                     });
