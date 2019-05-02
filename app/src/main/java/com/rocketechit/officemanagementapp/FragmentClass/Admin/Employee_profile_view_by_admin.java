@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import com.rocketechit.officemanagementapp.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -66,6 +68,10 @@ public class Employee_profile_view_by_admin extends Fragment {
 
     Attandence_List_Adapter attandence_list_adapter;
 
+    String month[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
+            "November", "December"};
+    String year[] = {"2018", "2019", "2020", "2021", "2022", "2023"};
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -103,6 +109,102 @@ public class Employee_profile_view_by_admin extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         attendanceTableID.setLayoutManager(linearLayoutManager);
+
+        //Creating the ArrayAdapter instance having the country list
+        ArrayAdapter month_adapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, month);
+        month_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        spinner_month.setAdapter(month_adapter);
+//SET current month
+        Calendar cal = Calendar.getInstance();
+        String current_month = month[cal.get(Calendar.MONTH)];
+        int selectionPosition = month_adapter.getPosition(current_month);
+        spinner_month.setSelection(selectionPosition);
+//SET current month End
+
+
+        ArrayAdapter year_adapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, year);
+        year_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        spinner_year.setAdapter(year_adapter);
+//SET current year
+        Calendar cal2 = Calendar.getInstance();
+        int year_int = cal2.get(Calendar.YEAR);
+        int i;
+        String current_year = null;
+        if (year_int == 2018) {
+            i = 0;
+            current_year = year[i];
+            int selectionPosition_year = year_adapter.getPosition(current_year);
+            spinner_year.setSelection(selectionPosition_year);
+        }
+        if (year_int == 2019) {
+            i = 1;
+            current_year = year[i];
+            int selectionPosition_year = year_adapter.getPosition(current_year);
+            spinner_year.setSelection(selectionPosition_year);
+        }
+        if (year_int == 2020) {
+            i = 2;
+            current_year = year[i];
+            int selectionPosition_year = year_adapter.getPosition(current_year);
+            spinner_year.setSelection(selectionPosition_year);
+        }
+        if (year_int == 2021) {
+            i = 3;
+            current_year = year[i];
+            int selectionPosition_year = year_adapter.getPosition(current_year);
+            spinner_year.setSelection(selectionPosition_year);
+        }
+        if (year_int == 2022) {
+            i = 3;
+            current_year = year[i];
+            int selectionPosition_year = year_adapter.getPosition(current_year);
+            spinner_year.setSelection(selectionPosition_year);
+        }
+        if (year_int == 2023) {
+            i = 3;
+            current_year = year[i];
+            int selectionPosition_year = year_adapter.getPosition(current_year);
+            spinner_year.setSelection(selectionPosition_year);
+        }
+//SET current year End
+        spinner_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String year = spinner_year.getSelectedItem().toString();
+                String month = spinner_month.getSelectedItem().toString();
+                getAttendenceValue(month, year);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spinner_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String year = spinner_year.getSelectedItem().toString();
+                String month = spinner_month.getSelectedItem().toString();
+                getAttendenceValue(month, year);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
+        /*
+
+
 //set on selected item in spinner month
         spinner_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -136,12 +238,17 @@ public class Employee_profile_view_by_admin extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
                 Toasty.info(getContext(), "No Selected", Toast.LENGTH_SHORT, true).show();
             }
-        });
+        });*/
     }
 
     //get Attendence value from database
     private void getAttendenceValue(String month, String year) {
         String userID_Employee = employee_information.getUserID_Employee();
+
+        date_List.clear();
+        entry_Time.clear();
+        exit_Time.clear();
+
         int monthNumber;
         int i = 0;
         if (month.equals("January")) {
@@ -229,7 +336,7 @@ public class Employee_profile_view_by_admin extends Fragment {
                             exit_Time.add(exitTime);
 
                             attandence_list_adapter = new Attandence_List_Adapter(getContext(),
-                                    date_List, entry_Time, exit_Time);
+                                    date_List, entry_Time, exit_Time,date_List.size());
                             attendanceTableID.setAdapter(attandence_list_adapter);
 
 

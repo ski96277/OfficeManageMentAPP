@@ -21,16 +21,18 @@ public class Attandence_List_Adapter extends RecyclerView.Adapter<Attandence_Lis
     List<String> date_List;
     List<String> entry_Time;
     List<String> exit_Time ;
+    int item_length;
 
     //for onClick from java class (Second ....)
     private static ClickListener clickListener;
 
-    public Attandence_List_Adapter(Context context, List<String> date_List, List<String> entry_Time, List<String> exit_Time) {
+    public Attandence_List_Adapter(Context context, List<String> date_List, List<String> entry_Time, List<String> exit_Time, int item_length) {
         this.context = context;
 
         this.date_List = date_List;
         this.entry_Time = entry_Time;
         this.exit_Time = exit_Time;
+        this.item_length=item_length;
     }
 
 
@@ -69,7 +71,7 @@ public class Attandence_List_Adapter extends RecyclerView.Adapter<Attandence_Lis
 
     @Override
     public int getItemCount() {
-        return date_List.size();
+        return item_length;
     }
 
     //implement interface for onClick from java class (third ....)

@@ -15,8 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:layout_marginTop="20dp"
-        android:entries="@array/month_List" />
+        android:layout_marginTop="20dp" />
 
     <Spinner
         android:id="@+id/spinner_year"
@@ -27,8 +26,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:entries="@array/year_List" />
+        android:layout_marginRight="24dp" />
 
     <LinearLayout
         android:id="@+id/title_header"

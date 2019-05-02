@@ -1,6 +1,7 @@
 package com.rocketechit.officemanagementapp.FragmentClass.Employee;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.rocketechit.officemanagementapp.JavaClass.ConstantClass;
 import com.rocketechit.officemanagementapp.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -55,6 +57,11 @@ public class My_Attendance_F extends Fragment {
     String userID;
     Attandence_List_Adapter attandence_list_adapter;
 
+    String month[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
+            "November", "December"};
+    String year[] = {"2018", "2019", "2020", "2021", "2022", "2023"};
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,7 +77,6 @@ public class My_Attendance_F extends Fragment {
         getActivity().setTitle("My Attendance");
 
         date_List = new ArrayList<>();
-      /*  keyList = new ArrayList<>();*/
         entry_Time = new ArrayList<>();
         exit_Time = new ArrayList<>();
 
@@ -79,87 +85,113 @@ public class My_Attendance_F extends Fragment {
         databaseReference2 = firebaseDatabase.getReference();
         databaseReference3 = firebaseDatabase.getReference();
 
-
-//get attendance value when load the fragment
-        spinner_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                getAttendenceValue(spinner_month.getSelectedItem().toString(), spinner_year.getSelectedItem().toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        spinner_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                getAttendenceValue(spinner_month.getSelectedItem().toString(), spinner_year.getSelectedItem().toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-/*        getAttendenceValue(spinner_month.getSelectedItem().toString()
-                , spinner_year.getSelectedItem().toString(), new GetAttendanceList() {
-                    @Override
-                    public void get_Date(List<String> date, List<String> entry_Time, List<String> exit_Time) {
-
-                        callAdapter(date, entry_Time, exit_Time);
-
-                    }
-                });*/
-
-        //set on selected item in spinner month
-       /* spinner_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                getAttendenceValue(spinner_month.getSelectedItem().toString()
-                        , spinner_year.getSelectedItem().toString(), new GetAttendanceList() {
-                            @Override
-                            public void get_Date(List<String> date, List<String> entry_Time, List<String> exit_Time) {
-
-
-                                callAdapter(date, entry_Time, exit_Time);
-                            }
-                        });
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Toasty.info(getContext(), "No Selected", Toast.LENGTH_SHORT, true).show();
-
-            }
-        });*/
-        //set on selected item in spinner year
-      /*  spinner_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                getAttendenceValue(spinner_month.getSelectedItem().toString(),
-                        spinner_year.getSelectedItem().toString(), new GetAttendanceList() {
-                            @Override
-                            public void get_Date(List<String> date, List<String> entry_Time, List<String> exit_Time) {
-
-                                callAdapter(date, entry_Time, exit_Time);
-                            }
-                        });
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Toasty.info(getContext(), "No Selected", Toast.LENGTH_SHORT, true).show();
-            }
-        });*/
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         attendanceTableID_My.setLayoutManager(linearLayoutManager);
+
+        //Creating the ArrayAdapter instance having the country list
+        ArrayAdapter month_adapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, month);
+        month_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        spinner_month.setAdapter(month_adapter);
+//SET current month
+        Calendar cal = Calendar.getInstance();
+        String current_month = month[cal.get(Calendar.MONTH)];
+        int selectionPosition = month_adapter.getPosition(current_month);
+        spinner_month.setSelection(selectionPosition);
+//SET current month End
+
+
+        ArrayAdapter year_adapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, year);
+        year_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        spinner_year.setAdapter(year_adapter);
+//SET current year
+        Calendar cal2 = Calendar.getInstance();
+        int year_int = cal2.get(Calendar.YEAR);
+        int i;
+        String current_year = null;
+        if (year_int == 2018) {
+            i = 0;
+            current_year = year[i];
+            int selectionPosition_year = year_adapter.getPosition(current_year);
+            spinner_year.setSelection(selectionPosition_year);
+        }
+        if (year_int == 2019) {
+            i = 1;
+            current_year = year[i];
+            int selectionPosition_year = year_adapter.getPosition(current_year);
+            spinner_year.setSelection(selectionPosition_year);
+        }
+        if (year_int == 2020) {
+            i = 2;
+            current_year = year[i];
+            int selectionPosition_year = year_adapter.getPosition(current_year);
+            spinner_year.setSelection(selectionPosition_year);
+        }
+        if (year_int == 2021) {
+            i = 3;
+            current_year = year[i];
+            int selectionPosition_year = year_adapter.getPosition(current_year);
+            spinner_year.setSelection(selectionPosition_year);
+        }
+        if (year_int == 2022) {
+            i = 3;
+            current_year = year[i];
+            int selectionPosition_year = year_adapter.getPosition(current_year);
+            spinner_year.setSelection(selectionPosition_year);
+        }
+        if (year_int == 2023) {
+            i = 3;
+            current_year = year[i];
+            int selectionPosition_year = year_adapter.getPosition(current_year);
+            spinner_year.setSelection(selectionPosition_year);
+        }
+//SET current year End
+        spinner_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String year = spinner_year.getSelectedItem().toString();
+                String month = spinner_month.getSelectedItem().toString();
+                getAttendenceValue(month, year);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spinner_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                    String year = spinner_year.getSelectedItem().toString();
+                    String month = spinner_month.getSelectedItem().toString();
+                    getAttendenceValue(month, year);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
     }
 
 
     private void getAttendenceValue(String month, String year) {
+
+        date_List.clear();
+        entry_Time.clear();
+        exit_Time.clear();
+        Log.e("TAG", "getAttendenceValue: "+date_List.size() );
+        Log.e("TAG", "getAttendenceValue: "+entry_Time.size() );
+        Log.e("TAG", "getAttendenceValue: "+exit_Time.size() );
+
         String userID_Employee = getUserID();
         int monthNumber;
         int i = 0;
@@ -248,7 +280,7 @@ public class My_Attendance_F extends Fragment {
                             exit_Time.add(exitTime);
 
                             attandence_list_adapter = new Attandence_List_Adapter(getContext(),
-                                    date_List, entry_Time, exit_Time);
+                                    date_List, entry_Time, exit_Time,date_List.size());
                             attendanceTableID_My.setAdapter(attandence_list_adapter);
 
 
@@ -283,138 +315,7 @@ public class My_Attendance_F extends Fragment {
 //first data (date) END
 
     }
-/*
-    private void callAdapter(List<String> date, List<String> entry_time, List<String> exit_time) {
-        Attandence_List_Adapter attandence_list_adapter = new Attandence_List_Adapter(getContext(), date,
-                entry_time, exit_time);
-        if (attandence_list_adapter!=null){
 
-            attendanceTableID_My.setAdapter(attandence_list_adapter);
-        }
-        attandence_list_adapter.setOnItemClickListener(new Attandence_List_Adapter.ClickListener() {
-            @Override
-            public void onItemClick(int position, View v) {
-
-            }
-
-            @Override
-            public void onItemLongClick(int position, View v) {
-
-            }
-        });
-    }
-*/
-
-  /*  public interface GetAttendanceList {
-        public void get_Date(List<String> date, List<String> entry_Time, List<String> exit_Time);
-
-    }
-
-    private void getAttendenceValue(String month, String year, GetAttendanceList getAttendanceList) {
-        String userID_Employee = userID;
-
-        int i = 0;
-        if (month.equals("January")) {
-            i = 1;
-        }
-        if (month.equals("February")) {
-            i = 2;
-        }
-        if (month.equals("March")) {
-            i = 3;
-        }
-        if (month.equals("April")) {
-            i = 4;
-        }
-        if (month.equals("May")) {
-            i = 5;
-        }
-        if (month.equals("June")) {
-            i = 6;
-        }
-        if (month.equals("July")) {
-            i = 7;
-        }
-        if (month.equals("August")) {
-            i = 8;
-        }
-        if (month.equals("September")) {
-            i = 9;
-        }
-        if (month.equals("October")) {
-            i = 10;
-        }
-        if (month.equals("November")) {
-            i = 11;
-        }
-        if (month.equals("December")) {
-            i = 12;
-        }
-
-        int monthNumber = i;
-        databaseReference.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-
-//check the user ID has in the attendance list
-                Toast.makeText(getContext(), ""+userID_Employee, Toast.LENGTH_SHORT).show();
-                if (!dataSnapshot.child("Attendance").hasChild(userID_Employee)) {
-                    attendanceTableID_My.setVisibility(View.GONE);
-                }
-//check the user  has attendance in this year
-                if (!dataSnapshot.child("Attendance").child(userID_Employee).hasChild(year)) {
-                    attendanceTableID_My.setVisibility(View.GONE);
-                }
-//check the user  has attendance in this month
-                if (!dataSnapshot.child("Attendance").child(userID_Employee).child(year).hasChild(month)) {
-                    attendanceTableID_My.setVisibility(View.GONE);
-                }
-
-                keyList.clear();
-
-                for (DataSnapshot snapshot : dataSnapshot.child("Attendance")
-                        .child(userID_Employee).child(year).child(String.valueOf(monthNumber))
-                        .getChildren()) {
-                    attendanceTableID_My.setVisibility(View.VISIBLE);
-
-                    entry_Time.clear();
-                    exit_Time.clear();
-                    String key = snapshot.getKey();
-                    keyList.add(key);
-                    databaseReference2.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                            String entryTime = dataSnapshot.child("Attendance").child(userID_Employee).child(year).child(String.valueOf(monthNumber))
-                                    .child(key).child("Entry").child("entryTime").getValue(String.class);
-                            String exitTime = dataSnapshot.child("Attendance").child(userID_Employee).child(year).child(String.valueOf(monthNumber))
-                                    .child(key).child("Exit").child("exitTime").getValue(String.class);
-                            entry_Time.add(entryTime);
-                            exit_Time.add(exitTime);
-
-                            getAttendanceList.get_Date(keyList, entry_Time, exit_Time);
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-
-                    });//second Data coming end
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });//first Data
-    }
-
-*/
     //get Current Admin User ID
     private String getUserID() {
 
@@ -425,4 +326,5 @@ public class My_Attendance_F extends Fragment {
         String userID = firebaseUser.getUid();
         return userID;
     }
+
 }
