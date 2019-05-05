@@ -59,48 +59,1156 @@
         android:layout_marginEnd="21dp"
         android:layout_marginRight="21dp" />
 
-    <LinearLayout
-        android:id="@+id/title_header"
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/spinner2">
+    <TableLayout
+        android:id="@+id/table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/spinner2"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        android:background="@drawable/button_background">
+        android:layout_marginVertical="5dp"
+        android:layout_marginHorizontal="10dp"
+        android:background="#f1f1f1">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Date"
-            android:textColor="#000"
-            android:textSize="30dp" />
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:gravity="center"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Entry"
-            android:textColor="#000"
-            android:textSize="25dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Entry"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Exit"
-            android:textColor="#000"
-            android:textSize="25dp" />
-    </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/attendanceTable_ID"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/title_header"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Exit"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"/>
 
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="13"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="14"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="16"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="17"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="18"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="19"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+
+
+
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="21"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="22"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="23"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="24"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="25"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="26"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+
+                android:id="@+id/entry_time_date_26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/date_TV_27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="27"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+        <TableRow android:id="@+id/table_row_28">
+            <TextView
+                android:id="@+id/date_TV_28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="28"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+
+        <TableRow android:id="@+id/table_row_29">
+            <TextView
+                android:id="@+id/date_TV_29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="29"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+        <TableRow android:id="@+id/table_row_30">
+            <TextView
+                android:id="@+id/date_TV_30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+        <TableRow android:id="@+id/table_row_31">
+            <TextView
+                android:id="@+id/date_TV_31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="31"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginBottom="1dp"
+                android:layout_marginHorizontal="1dp"/>
+
+            <TextView
+                android:id="@+id/entry_time_date_31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+            <TextView
+                android:id="@+id/exit_time_date_31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"/>
+
+        </TableRow>
+
+
+    </TableLayout>
+</ScrollView>
 
 </RelativeLayout>
