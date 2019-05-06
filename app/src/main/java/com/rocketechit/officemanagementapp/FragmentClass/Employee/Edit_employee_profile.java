@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.rocketechit.officemanagementapp.Activity.MainActivity_Employee;
 import com.rocketechit.officemanagementapp.JavaClass.CheckNetwork;
 import com.rocketechit.officemanagementapp.JavaClass.Employee_Information;
 import com.rocketechit.officemanagementapp.R;
@@ -111,11 +112,6 @@ public class Edit_employee_profile extends Fragment {
                 startActivityForResult(i, request_code);
                 break;
 
-            case R.id.employee_profileview_join_Date_TV:
-                Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show();
-                CallDatePicker();
-//                selectDate();
-                break;
 
             case R.id.employee_profileview_Save_button:
                 name_employee = employeeProfileviewNameET.getText().toString();
@@ -182,23 +178,20 @@ public class Edit_employee_profile extends Fragment {
                         imagelink = downloadLink;
                         upload_Updated_Data(designation, email, imagelink, join_date, name_employee, password_employee, phoneNumber, userID, userID_company);
                         progressDialog.dismiss();
+                        startActivity(new Intent(getContext(), MainActivity_Employee.class));
+                        getActivity().finish();
                     }
                 });
             }
         });
     }
 
-  /*  private void selectDate() {
-        Toast.makeText(getContext(), "select Date", Toast.LENGTH_SHORT).show();
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-        employeeProfileviewJoinDateTV.setText(String.valueOf(day) + "-" + String.valueOf(month) + "-" + String.valueOf(year));
-
-    }*/
-
     private void upload_Updated_Data(String designation, String email, String imagelink, String join_date, String name_employee, String password_employee, String phoneNumber, String userID, String userID_company) {
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setTitle("Uploading...");
+        progressDialog.show();
+        progressDialog.setCancelable(false);
+
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference();
         DatabaseReference databaseReference1 = firebaseDatabase.getReference();
@@ -208,6 +201,11 @@ public class Edit_employee_profile extends Fragment {
 
         databaseReference.child("Employee_List").child(userID).setValue(employee_information);
         databaseReference1.child("Company_Employee").child(userID_company).child(userID).setValue(employee_information);
+
+        progressDialog.dismiss();
+
+        startActivity(new Intent(getContext(), MainActivity_Employee.class));
+        getActivity().finish();
 
     }/*
     private void upload_Updated_Data(String designation, String email, String imagelink, String join_date, String name_employee, String password_employee, String phoneNumber, String userID, String userID_company) {

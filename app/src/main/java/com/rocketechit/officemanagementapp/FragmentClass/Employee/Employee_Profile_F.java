@@ -61,33 +61,31 @@ public class Employee_Profile_F extends Fragment {
         getActivity().setTitle("My Profile");
 
 
-        get_Employee_Information(new myCallBack() {
-            @Override
-            public void onCallBack(Employee_Information employee_information) {
-                String image_link = employee_information.getImageLink();
-                String position = employee_information.getDesignation();
-                String email = employee_information.getEmail_Employee();
-                String join_date = employee_information.getJoin_Date();
-                String name = employee_information.getName_Employee();
-                String pass = employee_information.getPassword_Employee();
-                String phone = employee_information.getPhone();
+        get_Employee_Information(employee_information -> {
+
+            String image_link = employee_information.getImageLink();
+            String position = employee_information.getDesignation();
+            String email = employee_information.getEmail_Employee();
+            String join_date = employee_information.getJoin_Date();
+            String name = employee_information.getName_Employee();
+            String pass = employee_information.getPassword_Employee();
+            String phone = employee_information.getPhone();
 
 
-                Log.e("image - -", "onCallBack: " + image_link);
-                Log.e("position- -", "onCallBack: " + position);
-                Log.e("email - -", "onCallBack: " + email);
-                Log.e("join Date - -", "onCallBack: " + join_date);
-                Log.e("name - -", "onCallBack: " + name);
-                Log.e("password - -", "onCallBack: " + pass);
-                Log.e("phone Number - -", "onCallBack: " + phone);
-                Picasso.get().load(image_link).error(R.drawable.man).placeholder(R.drawable.progress_animation).into(profileviewImage_img);
-                position_TV.setText(position);
-                name_TV.setText(name);
-                phoneNumber_TV.setText(phone);
-                email_TV.setText(email);
-                joinDate_TV.setText(join_date);
+            Log.e("image - -", "onCallBack: " + image_link);
+            Log.e("position- -", "onCallBack: " + position);
+            Log.e("email - -", "onCallBack: " + email);
+            Log.e("join Date - -", "onCallBack: " + join_date);
+            Log.e("name - -", "onCallBack: " + name);
+            Log.e("password - -", "onCallBack: " + pass);
+            Log.e("phone Number - -", "onCallBack: " + phone);
+            Picasso.get().load(image_link).error(R.drawable.man).placeholder(R.drawable.progress_animation).into(profileviewImage_img);
+            position_TV.setText(position);
+            name_TV.setText(name);
+            phoneNumber_TV.setText(phone);
+            email_TV.setText(email);
+            joinDate_TV.setText(join_date);
 
-            }
         });
 
 

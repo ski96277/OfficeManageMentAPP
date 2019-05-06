@@ -145,7 +145,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/employee_information_join_Date_TV"
+                android:id="@+id/employee_information_join_Date_TV_admin"
                 android:layout_width="241dp"
                 android:layout_height="37dp"
                 android:background="#DBDBDB"

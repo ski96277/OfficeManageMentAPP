@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import com.rocketechit.officemanagementapp.JavaClass.Employee_Information;
 import com.rocketechit.officemanagementapp.R;
 import com.squareup.picasso.Picasso;
@@ -26,7 +26,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -44,9 +43,9 @@ public class Employee_Information_F extends Fragment {
     TextView employeeInformationPhoneNumberTV;
     @BindView(R.id.employee_information_email_TV)
     TextView employeeInformationEmailTV;
-    @BindView(R.id.employee_information_join_Date_TV)
+
+    static
     TextView employeeInformationJoinDateTV;
-    public static TextView employeeInformationJoinDateTV2;
 
     @Nullable
     @Override
@@ -60,8 +59,7 @@ public class Employee_Information_F extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = getArguments();
-
-        employeeInformationJoinDateTV2 = view.findViewById(R.id.employee_information_join_Date_TV);
+employeeInformationJoinDateTV=view.findViewById(R.id.employee_information_join_Date_TV_admin);
 
         employee_information = (Employee_Information) bundle.getSerializable("employee_inforamtion");
         Picasso.get().load(employee_information.getImageLink()).error(R.drawable.man).placeholder(R.drawable.progress_animation).into(employeeProfileviewImage);
@@ -121,22 +119,23 @@ public class Employee_Information_F extends Fragment {
             int day = c.get(Calendar.DAY_OF_MONTH);
 
             // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), this, year, month, day);
+            return new DatePickerDialog(getActivity(), this, year, month + 1, day);
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
             // Do something with the date chosen by the user
-            employeeInformationJoinDateTV2.setText(String.valueOf(day + "-" + month + "-" + year));
+            int month2=month+1;
+            employeeInformationJoinDateTV.setText(String.valueOf(day + "-" + month2 + "-" + year));
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
             DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference();
 
 
             //set user join date in Company_Employee
             databaseReference.child("Company_Employee").child(Employee_Information_F.getUserID())
-                    .child(employee_information.getUserID_Employee()).child("join_Date").setValue(employeeInformationJoinDateTV2.getText());
+                    .child(employee_information.getUserID_Employee()).child("join_Date").setValue(employeeInformationJoinDateTV.getText());
             //set user join date in company profile
             databaseReference2.child("Employee_List").child(employee_information.getUserID_Employee())
-                    .child("join_Date").child(employeeInformationJoinDateTV2.getText().toString());
+                    .child("join_Date").setValue(employeeInformationJoinDateTV.getText().toString());
         }
     }
 
